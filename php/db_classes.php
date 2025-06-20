@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("127.0.0.1:3307", "root", "2Noah!haoN2", "apexstrength");
+$conn = new mysqli("mysql.railway.internal", "root", "xwOUJonIxgZWDjrTdzwWLYsJSazIcthn", "railway");
 
 if ($conn->connect_error) {
     die(json_encode(["error" => "DB connection failed"]));

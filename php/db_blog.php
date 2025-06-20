@@ -1,10 +1,9 @@
 <?php
-UjV4OenXwGrU1a
 
-$host = 'turntable.proxy.rlwy.net';
-$port = 37104;
+$host = 'mysql.railway.internal';
+$port = 3306;
 $user = 'root';
-$password = 'UZJFKFtxRYkTNsytXeLGrzuDXjYsENlk'; 
+$password = 'xwOUJonIxgZWDjrTdzwWLYsJSazIcthn'; 
 $database = 'railway';
 
 $conn = new mysqli($host, $user, $password, $database);
