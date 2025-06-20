@@ -1,6 +1,6 @@
 <?php
 $host = 'hopper.proxy.rlwy.net';
-$port = 37104;
+$port = 3306;
 $user = 'root';
 $password = 'xwOUJonIxgZWDjrTdzwWLYsJSazIcthn';
 $database = 'railway';
