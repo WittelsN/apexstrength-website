@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manage Trainers | Apex Admin</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .admin-section {
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+      color: #fff;
+    }
+
+    .admin-section h2 {
+      margin-bottom: 20px;
+      color: #f04d4d;
+    }
+
+    .admin-section input,
+    .admin-section textarea,
+    .admin-section select,
+    .admin-section button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .admin-section button {
+      background-color: #f04d4d;
+      color: white;
+      cursor: pointer;
+    }
+
+    .admin-navbar {
+      background-color: #1f1f1f;
+      border-bottom: 2px solid #444;
+    }
+
+    .admin-tabs {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      margin: 0;
+    }
+
+    .admin-tabs li {
+      margin: 0 20px;
+    }
+
+    .admin-tabs a {
+      color: #f04d4d;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .admin-tabs a:hover {
+      background-color: #333;
+    }
+
+    .preview-image {
+      max-width: 100px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .search-result {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #2a2a2a;
+      border-radius: 10px;
+    }
+
+    .search-result h3 {
+      margin-bottom: 10px;
+      color: #f04d4d;
+    }
+
+    .search-result p {
+      margin: 5px 0;
+    }
+
+    .search-section {
+      margin-top: 60px;
+      padding-top: 40px;
+    }
+
+    .add-section {
+      margin-top: 60px;
+      border-top: 1px solid #555;
+      padding-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<header class="admin-navbar">
+  <div class="logo-container" style="display: flex; align-items: center; padding-left: 20px;">
+    <img src="assets/logo.png" alt="Logo" style="height: 40px; margin-right: 10px;">
+    <div class="logo" style="color: #f04d4d; font-weight: bold;">Apex Strength</div>
+  </div>
+  <ul class="admin-tabs">
+    <li><a href="index.html">Back</a></li>
+    <li><a href="manageusers.html">Manage Users</a></li>
+    <li><a href="managetrainers.html">Manage Trainers</a></li>
+    <li><a href="manageclasses.html">Manage Classes</a></li>
+    <li><a href="managepromotions.html">Manage Promotions</a></li>
+    <li><a href="manageblog.html">Manage Blog</a></li>
+  </ul>
+</header>
+
+<section class="admin-section">
+
+  <div class="search-section">
+    <h2>Search & Delete Trainer</h2>
+    <input type="text" id="search-input" placeholder="Enter trainer ID or name...">
+    <button onclick="searchTrainer()">Search</button>
+
+    <div id="trainer-result" class="search-result" style="display: none;">
+      <h3>Trainer Found</h3>
+      <p><strong>ID:</strong> <span id="trainer-id"></span></p>
+      <p><strong>Name:</strong> <span id="trainer-name"></span></p>
+      <p><strong>Specialization:</strong> <span id="trainer-spec"></span></p>
+      <p><strong>Bio:</strong> <span id="trainer-bio"></span></p>
+      <button onclick="deleteTrainer()">Delete Trainer</button>
+    </div>
+  </div>
+
+  <div class="add-section">
+    <h2>Add New Trainer</h2>
+    <form id="add-trainer-form" enctype="multipart/form-data">
+      <label for="name">Name:</label>
+      <input type="text" name="name" required>
+
+      <label for="specialization">Specialization:</label>
+      <input type="text" name="specialization" required>
+
+      <label for="bio">Bio:</label>
+      <textarea name="bio" rows="4" required></textarea>
+
+      <label for="image">Image:</label>
+      <input type="file" name="image" accept="image/*" required>
+      <img class="preview-image" id="preview-image" src="#" alt="Preview" />
+
+      <button type="submit">Add Trainer</button>
+    </form>
+  </div>
+
+</section>
+
+<script>
+  // Preview image
+  document.querySelector('input[name="image"]').addEventListener("change", function () {
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = document.getElementById("preview-image");
+        img.src = e.target.result;
+        img.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Add trainer
+  document.getElementById("add-trainer-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    fetch("php/managetrainers.php", {
+      method: "POST",
+      body: formData
+    })
+    .then(res => res.text())
+    .then(response => {
+      alert(response);
+      this.reset();
+      document.getElementById("preview-image").style.display = "none";
+    });
+  });
+
+  // Search trainer
+  function searchTrainer() {
+    const search = document.getElementById('search-input').value.trim();
+    if (!search) return;
+
+    fetch(`php/managetrainers.php?search=${encodeURIComponent(search)}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          document.getElementById('trainer-result').style.display = 'block';
+          document.getElementById('trainer-id').textContent = data.trainer.id;
+          document.getElementById('trainer-name').textContent = data.trainer.name;
+          document.getElementById('trainer-spec').textContent = data.trainer.specialization;
+          document.getElementById('trainer-bio').textContent = data.trainer.bio;
+        } else {
+          alert(data.message);
+          document.getElementById('trainer-result').style.display = 'none';
+        }
+      });
+  }
+
+  // Delete trainer
+  function deleteTrainer() {
+    const trainerId = document.getElementById('trainer-id').textContent;
+
+    if (!confirm("Are you sure you want to delete this trainer?")) return;
+
+    fetch('php/managetrainers.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `delete_id=${encodeURIComponent(trainerId)}`
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message);
+      if (data.success) {
+        document.getElementById('trainer-result').style.display = 'none';
+        document.getElementById('search-input').value = '';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

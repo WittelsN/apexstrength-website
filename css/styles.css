@@ -1,0 +1,738 @@
+/* Base Setup */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #121212;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* Navigation */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure it stays above all other content */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1f1f1f;
+  padding: 15px 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); /* optional: gives a subtle shadow */
+}
+
+
+.navbar .logo {
+  font-weight: bold;
+  font-size: 20px;
+  color: #f04d4d;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  padding-right: 50px;
+}
+
+.h2{
+font-size: xx-large;    
+color: #f04d4d;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #f04d4d;
+}
+
+.navbar .login-btn,
+.navbar .register-btn {
+  background-color: #f04d4d;
+  padding: 6px 12px;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Adjust this to your liking (e.g. 6px, 10px, etc.) */
+}
+
+.logo-container img {
+  height: 24px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+
+
+
+.logo-img {
+  height: 32px;
+  width: 32px;
+}
+
+.logo-text {
+  font-weight: bold;
+  font-size: 20px;
+  color: #f04d4d;
+}
+
+
+/* Hero Banner + Overlay Title */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-text-box {
+  background-color: rgba(0, 0, 0, 0.5); /* translucent grey */
+  padding: 20px 30px;
+  width: 700px;
+  border-radius: 10px;
+  text-align: center;
+  color: #f04d4d;
+  display: inline-block;
+}
+
+
+.hero-title {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 80px;
+  font-weight: 700;
+  z-index: 2;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-banner.trainers-page img {
+  filter: blur(3px);
+  transform: scale(1.05);
+}
+
+.about {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 40px 20px;
+  color: #ddd;
+}
+
+
+/* Feature Blocks */
+.feature-block {
+  padding: 40px 20px;
+  justify-content: center;
+  text-align: center;
+}
+
+.feature-block-class{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+/* Card Styling */
+.card {
+  width: 200px;
+  background: #1e1e1e;
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  min-height: 350px;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.card-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Info Section */
+.card-info {
+  margin-top: 5px;
+  color: #eee;
+  font-size: 14px;
+  line-height: 0.8;
+  margin-bottom: 5px;
+}
+
+.card-info strong {
+  display: block;
+  font-size: 15px;
+  color: #fff;
+  line-height: 1.5;
+}
+
+.card-info span {
+  color: #ccc;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+/* Description Toggle */
+.card-description {
+  display: none;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #ccc;
+  line-height: 1.4;
+}
+
+/* Buttons */
+.card button,
+.learn-more-btn,
+.abovefooter-btn,
+.footer-btn,
+.join-now-btn {
+  background-color: #f04d4d;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease;
+  text-decoration: none;
+}
+
+.card button:hover,
+.learn-more-btn:hover,
+.abovefooter-btn:hover,
+.footer-btn:hover,
+.join-now-btn:hover {
+  background-color: #d03c3c;
+}
+
+.learn-more-btn {
+  margin-top: 10px;
+}
+
+/* Above Footer CTA */
+.centered-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+/* CTA Membership */
+.cta-membership {
+  position: relative;
+  padding: 50px 20px;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+.cta-banner {
+  filter: blur(3px);
+  transform: scale(1.05);
+}
+
+.cta-overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.cta-membership h3 {
+  margin-bottom: 30px;
+  font-size: 35px;
+  color: #f04d4d;
+}
+
+/* Footer */
+.footer {
+  background: #101010;
+  text-align: center;
+  padding: 30px 20px;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.footer-btn {
+  margin-top: 20px;
+  display: inline-block;
+}
+
+/* Booking Form Styling for Classes Page */
+.feature-block-class {
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.class-booking-container {
+  display: flex;
+  justify-content: center;
+}
+
+.class-booking-form {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding: 25px 30px;
+  width: 300px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.class-booking-form h4 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #f04d4d;
+  text-align: center;
+}
+
+.class-booking-form label {
+  text-align: left;
+  font-size: 14px;
+  color: #ccc;
+  margin-top: 5px;
+}
+
+.class-booking-form input,
+.class-booking-form select {
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.class-booking-form input:focus,
+.class-booking-form select:focus {
+  outline: none;
+  border-color: #f04d4d;
+}
+
+.class-booking-btn {
+  margin-top: 15px;
+  background-color: #f04d4d;
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.class-booking-btn:hover {
+  background-color: #d03c3c;
+}
+
+@media screen and (max-width: 768px) {
+  .class-booking-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.membership-hero-title {
+  position: absolute;   
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 80px;
+  font-weight: 700;
+  z-index: 2;
+  text-align: center;
+  white-space: nowrap;
+}
+
+
+.membership-options {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.membership-card {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  width: 220px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+.membership-card .card-img {
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.membership-price {
+  color: #f04d4d;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.comparison-table {
+  overflow-x: auto;
+}
+
+.comparison-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 14px;
+  border: 1px solid #333;
+  text-align: center;
+  font-size: 14px;
+}
+
+.comparison-table th {
+  background-color: #2a2a2a;
+  color: #f04d4d;
+}
+
+.comparison-table td {
+  color: #ccc;
+}
+
+.map {
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 1000px;
+  display: block;
+}
+
+.comparison-table {
+  overflow-x: auto;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.comparison-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.comparison-table th,
+.comparison-table td {
+  border: 1px solid #444;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  color: #eee;
+}
+
+.comparison-table th {
+  background-color: #2a2a2a;
+  color: #f04d4d;
+}
+
+.location-search {
+  background-color: #1e1e1e;
+  border: 1px solid #444;
+  padding: 10px;
+  border-radius: 6px;
+  width: 300px;
+  font-size: 14px;
+  color: white;
+  margin-top: 10px;
+}
+
+.location-search::placeholder {
+  color: #999;
+}
+
+@media screen and (max-width: 768px) {
+  .comparison-table table {
+    font-size: 12px;
+  }
+  .location-search {
+    width: 90%;
+  }
+}
+
+.blog-section {
+  padding: 40px 20px;
+}
+
+.blog-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.blog-card {
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
+  padding: 60px 20px;
+  color: #fff;
+}
+
+.blog-title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+.blog-card .blog-content {
+  max-height: 0;
+  overflow: hidden;
+  background-color: #1e1e1e;
+  color: #ddd;
+  padding: 0 20px;
+  transition: max-height 0.5s ease;
+  line-height: 1.5;
+}
+
+.blog-card.expanded .blog-content {
+  max-height: 300px;
+  padding: 20px;
+}
+
+.blog-card .blog-banner {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  margin: -20px -20px 20px -20px;
+  background-image: inherit;
+}
+
+@media screen and (max-width: 768px) {
+  .blog-card {
+    padding: 40px 10px;
+  }
+  .blog-title {
+    font-size: 20px;
+  }
+}
+
+
+textarea, input[type="email"] {
+  font-family: 'Inter', sans-serif;
+}
+
+textarea::placeholder,
+input::placeholder {
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* Slide-in Login Panel */
+.login-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 350px;
+  height: 100vh;
+  background-color: #1e1e1e;
+  color: #fff;
+  transition: right 0.4s ease-in-out;
+  z-index: 9999;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.login-panel.active {
+  right: 0;
+}
+
+.login-content {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-content h3 {
+  margin-bottom: 10px;
+  color: #f04d4d;
+}
+
+.login-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-content label {
+  font-size: 14px;
+  color: #ccc;
+  margin-bottom: 5px;
+}
+
+.login-content input {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+.login-content input:focus {
+  outline: none;
+  border-color: #f04d4d;
+}
+
+.login-submit-btn {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f04d4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.login-submit-btn:hover {
+  background-color: #d03c3c;
+}
+
+.close-login {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.payment-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.payment-popup.active {
+  display: flex;
+}
+
+.payment-content {
+  background: #fff;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.payment-content input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+}
+
+.payment-content button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.tick-confirmation {
+  font-size: 24px;
+  font-weight: bold;
+  color: green;
+  text-align: center;
+  margin-top: 10px;
+}
+
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .card-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar ul {
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .hero-title {
+    font-size: 36px;
+  }
+}

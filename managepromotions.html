@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manage Promotions | Apex Admin</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .admin-section {
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .admin-section h2 {
+      margin-bottom: 20px;
+      color: #f04d4d;
+    }
+
+    .admin-section input,
+    .admin-section textarea,
+    .admin-section button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .admin-section button {
+      background-color: #f04d4d;
+      color: white;
+      cursor: pointer;
+    }
+
+    .admin-navbar {
+      background-color: #1f1f1f;
+      border-bottom: 2px solid #444;
+    }
+
+    .admin-tabs {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      margin: 0;
+    }
+
+    .admin-tabs li {
+      margin: 0 20px;
+    }
+
+    .admin-tabs a {
+      color: #f04d4d;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .admin-tabs a:hover {
+      background-color: #333;
+    }
+
+    .search-section {
+      margin-bottom: 50px;
+      border-bottom: 1px solid #444;
+      padding-bottom: 30px;
+    }
+
+    .search-result {
+      margin-top: 20px;
+      background-color: #222;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .search-result p {
+      margin: 5px 0;
+    }
+
+    .search-result h3 {
+      color: #f04d4d;
+    }
+  </style>
+</head>
+<body>
+
+<header class="admin-navbar">
+  <div class="logo-container" style="display: flex; align-items: center; padding-left: 20px;">
+    <img src="assets/logo.png" alt="Logo" style="height: 40px; margin-right: 10px;">
+    <div class="logo" style="color: #f04d4d; font-weight: bold;">Apex Strength</div>
+  </div>
+  <ul class="admin-tabs">
+    <li><a href="index.html">Back</a></li>
+    <li><a href="manageusers.html">Manage Users</a></li>
+    <li><a href="managetrainers.html">Manage Trainers</a></li>
+    <li><a href="manageclasses.html">Manage Classes</a></li>
+    <li><a href="managepromotions.html">Manage Promotions</a></li>
+    <li><a href="manageblog.html">Manage Blog</a></li>
+  </ul>
+</header>
+
+<section class="admin-section">
+  <!-- SEARCH + DELETE -->
+  <div class="search-section">
+    <h2>Search & Delete Promotion</h2>
+    <input type="text" id="promo-search-input" placeholder="Enter promotion ID or title..." />
+    <button onclick="searchPromotion()">Search</button>
+
+    <div id="promo-result" class="search-result" style="display: none;">
+      <h3>Promotion Found</h3>
+      <p><strong>ID:</strong> <span id="promo-id"></span></p>
+      <p><strong>Title:</strong> <span id="promo-title"></span></p>
+      <p><strong>Code:</strong> <span id="promo-code"></span></p>
+      <p><strong>Description:</strong> <span id="promo-description"></span></p>
+      <p><strong>Start Date:</strong> <span id="promo-start"></span></p>
+      <p><strong>End Date:</strong> <span id="promo-end"></span></p>
+      <button onclick="deletePromotion()">Delete Promotion</button>
+    </div>
+  </div>
+
+  <!-- ADD NEW PROMOTION -->
+  <h2>Add New Promotion</h2>
+  <form id="add-promo-form" enctype="multipart/form-data">
+  <label>Title:</label>
+  <input type="text" name="title" required>
+
+  <label>Code:</label>
+  <input type="text" name="code" required>
+
+  <label>Description:</label>
+  <textarea name="description" required></textarea>
+
+  <label>Start Date:</label>
+  <input type="date" name="start_date" required>
+
+  <label>End Date:</label>
+  <input type="date" name="end_date" required>
+
+  <label>Banner Image:</label>
+  <input type="file" name="banner_image" accept="image/*" required>
+
+  <button type="submit">Add Promotion</button>
+</form>
+</section>
+
+<script>
+  document.getElementById("add-promo-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const form = this;
+    const formData = new FormData(form);
+
+    // Get image file and append to formData
+    const imageInput = document.querySelector('input[name="banner_image"]');
+    if (imageInput.files.length > 0) {
+      formData.append("banner_image", imageInput.files[0]);
+    }
+
+    fetch("php/managepromotions.php", {
+      method: "POST",
+      body: formData
+    })
+    .then(res => res.text())
+    .then(response => {
+      alert(response);
+      form.reset();
+    });
+  });
+
+  function searchPromotion() {
+    const search = document.getElementById("promo-search-input").value.trim();
+    if (!search) return;
+
+    fetch(`php/managepromotions.php?search=${encodeURIComponent(search)}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          document.getElementById("promo-result").style.display = "block";
+          document.getElementById("promo-id").textContent = data.promo.id;
+          document.getElementById("promo-title").textContent = data.promo.title;
+          document.getElementById("promo-code").textContent = data.promo.code;
+          document.getElementById("promo-description").textContent = data.promo.description;
+          document.getElementById("promo-start").textContent = data.promo.start_date;
+          document.getElementById("promo-end").textContent = data.promo.end_date;
+        } else {
+          alert(data.message);
+          document.getElementById("promo-result").style.display = "none";
+        }
+      });
+  }
+
+  function deletePromotion() {
+    const promoId = document.getElementById("promo-id").textContent;
+
+    if (!confirm("Are you sure you want to delete this promotion?")) return;
+
+    fetch("php/managepromotions.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `delete_id=${encodeURIComponent(promoId)}`
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message);
+      if (data.success) {
+        document.getElementById("promo-result").style.display = "none";
+        document.getElementById("promo-search-input").value = "";
+      }
+    });
+  }
+</script>
+
+
+</body>
+</html>

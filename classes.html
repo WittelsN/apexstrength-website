@@ -1,0 +1,206 @@
+<!-- Entire updated classes.html provided below -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apex Strength | Classes</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo-container">
+    <img src="assets/logo.png" alt="Logo" />
+    <div class="logo">Apex Strength</div>
+  </div>
+  <nav>
+    <ul id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="trainers.html">Trainers</a></li>
+      <li><a href="classes.html">Classes</a></li>
+      <li><a href="membership.html">Membership</a></li>
+      <li><a href="locations.html">Locations</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="#" class="login-btn">Login</a></li>
+      <li><a href="#" class="register-btn">Register</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero-banner trainers-page">
+  <div class="hero-overlay">
+    <h1 class="hero-title">
+      <div class="hero-text-box">Our Classes</div>
+    </h1>
+    <img src="assets/class3.jpg" alt="Classes Hero Banner" class="hero-img" />
+  </div>
+</section>
+
+<section class="feature-block">
+  <h3 class="h2">Explore Our Most Popular Classes</h3>
+  <div class="card-grid"></div>
+</section>
+
+<section class="feature-block">
+  <h3 class="h2">Daily Class Schedule</h3>
+  <div class="comparison-table">
+    <table>
+      <thead>
+        <tr><th>Class</th><th>Sandton</th><th>Melrose</th><th>Sea Point</th><th>Durban</th><th>Kimberley</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Spinning</td><td>-</td><td>7am</td><td>11am</td><td>3pm</td><td>9am</td></tr>
+        <tr><td>Yoga</td><td>7am</td><td>9am</td><td>3pm</td><td>11am</td><td>5pm</td></tr>
+        <tr><td>Sweat</td><td>3pm</td><td>-</td><td>9am</td><td>5pm</td><td>-</td></tr>
+        <tr><td>Pilates</td><td>5pm</td><td>11am</td><td>7am</td><td>9am</td><td>3pm</td></tr>
+        <tr><td>CrossFit</td><td>11am</td><td>5pm</td><td>-</td><td>-</td><td>7am</td></tr>
+        <tr><td>HIIT</td><td>9am</td><td>3pm</td><td>5pm</td><td>7am</td><td>11am</td></tr>
+        <tr><td>Personal Training</td><td>1pm</td><td>1pm</td><td>1pm</td><td>1pm</td><td>1pm</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="feature-block-class">
+  <div class="class-booking-container">
+    <form class="class-booking-form">
+      <h4>Book a Class</h4>
+
+      <label>Location</label>
+      <select name="location" required>
+        <option value="">Choose Location</option>
+        <option>Sandton</option>
+        <option>Melrose</option>
+        <option>Sea Point</option>
+        <option>Durban</option>
+        <option>Kimberley</option>
+      </select>
+
+      <label>Class</label>
+      <select name="class_name" required>
+        <option value="">Choose Class</option>
+        <option>Spinning</option>
+        <option>Yoga</option>
+        <option>Sweat</option>
+        <option>Pilates</option>
+        <option>CrossFit</option>
+        <option>HIIT</option>
+        <option>Personal Training</option>
+      </select>
+
+      <label>Date</label>
+      <input type="date" name="date" required />
+
+      <label>Time</label>
+      <select name="time" required><option value="">Choose Time</option></select>
+
+      <button type="submit" class="class-booking-btn">Book</button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer universal-footer">
+  <div class="footer-links">
+    <a href="https://www.planetfitness.co.za/" target="_blank">Planet Fitness South Africa</a> |
+    <a href="https://www.facebook.com/PlanetFitnessSA" target="_blank">Facebook</a> |
+    <a href="https://www.instagram.com/planetfitnessza/" target="_blank">Instagram</a>
+  </div>
+  <p>&copy; 2025 Apex Strength. All rights reserved.</p>
+</footer>
+
+<script>
+const classSchedule = {
+  Sandton: { "Yoga": "7am", "HIIT": "9am", "CrossFit": "11am", "Personal Training": "1pm", "Sweat": "3pm", "Pilates": "5pm" },
+  Melrose: { "Spinning": "7am", "Yoga": "9am", "Pilates": "11am", "Personal Training": "1pm", "HIIT": "3pm", "CrossFit": "5pm" },
+  "Sea Point": { "Pilates": "7am", "Sweat": "9am", "Spinning": "11am", "Personal Training": "1pm", "Yoga": "3pm", "HIIT": "5pm" },
+  Durban: { "HIIT": "7am", "Pilates": "9am", "Yoga": "11am", "Personal Training": "1pm", "Spinning": "3pm", "Sweat": "5pm" },
+  Kimberley: { "CrossFit": "7am", "Spinning": "9am", "HIIT": "11am", "Personal Training": "1pm", "Pilates": "3pm", "Yoga": "5pm" }
+};
+
+const locSel = document.querySelector('select[name="location"]');
+const classSel = document.querySelector('select[name="class_name"]');
+const timeSel = document.querySelector('select[name="time"]');
+
+function updateTimeOptions() {
+  const loc = locSel.value;
+  const cls = classSel.value;
+  timeSel.innerHTML = `<option value="">Choose Time</option>`;
+  if (classSchedule[loc] && classSchedule[loc][cls]) {
+    const opt = document.createElement("option");
+    opt.value = classSchedule[loc][cls];
+    opt.textContent = classSchedule[loc][cls];
+    timeSel.appendChild(opt);
+  }
+}
+locSel.addEventListener("change", updateTimeOptions);
+classSel.addEventListener("change", updateTimeOptions);
+
+// Load cards
+fetch("php/db_classes.php")
+  .then(res => res.json())
+  .then(data => {
+    const grid = document.querySelector(".card-grid");
+    grid.innerHTML = "";
+    data.classes.forEach(cls => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <img src="${cls.class_image}" alt="${cls.name}" class="card-img" />
+        <div class="card-info"><strong>${cls.name}</strong></div>
+        <button class="learn-more-btn" onclick="toggleDescription(this)">Learn More</button>
+        <div class="card-description">${cls.description}</div>
+      `;
+      grid.appendChild(card);
+    });
+  });
+
+function toggleDescription(button) {
+  const card = button.closest(".card");
+  const desc = card.querySelector(".card-description");
+  const isOpen = desc.style.display === "block";
+  desc.style.display = isOpen ? "none" : "block";
+  button.innerText = isOpen ? "Learn More" : "Show Less";
+}
+
+// CLASS BOOKING HANDLER
+document.querySelector(".class-booking-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+  fetch("php/book_class.php", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.text())
+  .then(response => {
+    if (response.trim() === "success") {
+      alert("Class booked successfully!");
+      this.reset();
+    } else {
+      alert("Error: " + response);
+    }
+  });
+});
+
+// LOGIN SESSION NAV UPDATE
+fetch("php/check_session.php")
+  .then(res => res.json())
+  .then(data => {
+    if (data.loggedIn) {
+      document.querySelectorAll(".login-btn, .register-btn").forEach(btn => btn.remove());
+      const profile = document.createElement("li");
+      profile.innerHTML = `<a href="profile.php" class="profile-tab">Profile</a>`;
+      document.getElementById("nav-links").appendChild(profile);
+      if (data.role === "admin") {
+        const admin = document.createElement("li");
+        admin.innerHTML = `<a href="manageusers.html" class="admin-tab">Admin</a>`;
+        document.getElementById("nav-links").appendChild(admin);
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

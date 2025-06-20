@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Apex Strength | Blog</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    .blog-section {
+      padding: 40px 20px;
+    }
+
+    .blog-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .blog-card {
+       background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
+  padding: 60px 20px 0;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+    }
+
+    .blog-title {
+      font-size: 24px;
+      font-weight: 600;
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+      margin-bottom: 20px;
+    }
+
+    .blog-card .blog-content {
+      background-color: #1e1e1e;
+      color: #ddd;
+      padding: 20px;
+      transition: max-height 0.5s ease;
+      line-height: 1.6;
+      width: 100%;
+      box-sizing: border-box;
+      display: block;
+      overflow-wrap: break-word;
+    }
+
+    .blog-card .blog-banner {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      margin: -20px -20px 20px -20px;
+      background-image: inherit;
+    }
+
+    .blog-card.expanded .blog-content {
+      display: block;
+      max-height: none !important;
+  overflow: visible !important;
+    }
+
+    @media screen and (max-width: 768px) {
+      .blog-card {
+        padding: 40px 10px 0;
+      }
+
+      .blog-title {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="Logo" class="logo-icon" />
+      <div class="logo">Apex Strength</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="trainers.html">Trainers</a></li>
+        <li><a href="classes.html">Classes</a></li>
+        <li><a href="membership.html">Membership</a></li>
+        <li><a href="locations.html">Locations</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="#" class="login-btn">Login</a></li>
+        <li><a href="#" class="register-btn">Register</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero-banner trainers-page">
+    <div class="hero-overlay">
+      <h1 class="hero-title"><div class="hero-text-box">Blog</div></h1>
+      <img src="assets/blogbanner.jpg" alt="Blog Banner" class="hero-img"/>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section class="blog-section">
+    <div class="blog-grid" id="blog-container">
+      <!-- Blog cards will be injected here -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer universal-footer">
+  <div class="footer-links">
+    <a href="https://www.planetfitness.co.za/" target="_blank" rel="noopener noreferrer">Planet Fitness South Africa</a> |
+    <a href="https://www.facebook.com/PlanetFitnessSA" target="_blank" rel="noopener noreferrer">Facebook</a> |
+    <a href="https://www.instagram.com/planetfitnessza/" target="_blank" rel="noopener noreferrer">Instagram</a>
+  </div>
+  <p>&copy; 2025 Apex Strength. All rights reserved.</p>
+</footer>
+
+
+  <!-- Login and Register Panels -->
+  <div id="login-panel" class="login-panel">
+    <div class="login-content">
+      <h3>Login</h3>
+      <form id="login-form">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" placeholder="Enter your email" required>
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" placeholder="Enter your password" required>
+        <button type="submit" class="login-submit-btn">Login</button>
+      </form>
+      <span class="close-login" onclick="toggleLogin()">×</span>
+    </div>
+  </div>
+
+  <div id="register-panel" class="login-panel">
+    <div class="login-content">
+      <h3>Register</h3>
+      <form id="register-form">
+        <label for="register-name">Full Name</label>
+        <input type="text" id="register-name" placeholder="Enter your name" required>
+        <label for="register-email">Email</label>
+        <input type="email" id="register-email" placeholder="Enter your email" required>
+        <label for="register-password">Password</label>
+        <input type="password" id="register-password" placeholder="Create a password" required>
+        <button type="submit" class="login-submit-btn">Register</button>
+      </form>
+      <span class="close-login" onclick="toggleRegister()">×</span>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    function toggleLogin() {
+      document.getElementById("login-panel").classList.toggle("active");
+    }
+
+    function toggleRegister() {
+      document.getElementById("register-panel").classList.toggle("active");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".login-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          toggleLogin();
+        });
+      });
+
+      document.querySelectorAll(".register-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          toggleRegister();
+        });
+      });
+
+      document.getElementById("register-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        fetch("php/register.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            name: document.getElementById("register-name").value,
+            email: document.getElementById("register-email").value,
+            password: document.getElementById("register-password").value
+          })
+        })
+        .then(res => res.text())
+        .then(data => {
+          if (data.trim() === "success") {
+            alert("Registration successful!");
+            toggleRegister();
+          } else {
+            alert(data);
+          }
+        });
+      });
+
+      document.getElementById("login-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        fetch("php/login.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            email: document.getElementById("login-email").value,
+            password: document.getElementById("login-password").value
+          })
+        })
+        .then(res => res.text())
+        .then(data => {
+          if (data.trim() === "success") {
+            alert("Login successful!");
+            toggleLogin();
+            document.querySelectorAll(".login-btn, .register-btn").forEach(btn => {
+              btn.style.display = "none";
+            });
+            fetch("php/check_session.php")
+              .then(res => res.json())
+              .then(data => {
+                if (data.loggedIn) {
+                  if (!document.querySelector(".profile-tab")) {
+                    const profileItem = document.createElement("li");
+                    const profileLink = document.createElement("a");
+                    profileLink.href = "profile.php";
+                    profileLink.innerText = "Profile";
+                    profileLink.classList.add("profile-tab");
+                    profileItem.appendChild(profileLink);
+                    document.querySelector("nav ul").appendChild(profileItem);
+                  }
+
+                  if (data.role === "admin" && !document.querySelector(".admin-tab")) {
+                    const adminItem = document.createElement("li");
+                    const adminLink = document.createElement("a");
+                    adminLink.href = "manageusers.html";
+                    adminLink.innerText = "Admin";
+                    adminLink.classList.add("admin-tab");
+                    adminItem.appendChild(adminLink);
+                    document.querySelector("nav ul").appendChild(adminItem);
+                  }
+                }
+              });
+          } else {
+            alert(data);
+          }
+        });
+      });
+    });
+
+    fetch("php/check_session.php")
+      .then(res => res.json())
+      .then(data => {
+        if (data.loggedIn) {
+          document.querySelectorAll(".login-btn, .register-btn").forEach(btn => btn.style.display = "none");
+
+          if (!document.querySelector(".profile-tab")) {
+            const profileTab = document.createElement("li");
+            const profileLink = document.createElement("a");
+            profileLink.href = "profile.php";
+            profileLink.innerText = "Profile";
+            profileLink.classList.add("profile-tab");
+            profileTab.appendChild(profileLink);
+            document.querySelector("nav ul").appendChild(profileTab);
+          }
+
+          if (data.role === "admin" && !document.querySelector(".admin-tab")) {
+            const adminTab = document.createElement("li");
+            const adminLink = document.createElement("a");
+            adminLink.href = "manageusers.html";
+            adminLink.innerText = "Admin";
+            adminLink.classList.add("admin-tab");
+            adminTab.appendChild(adminLink);
+            document.querySelector("nav ul").appendChild(adminTab);
+          }
+        }
+      });
+
+    function toggleArticle(card) {
+      const isExpanded = card.classList.contains('expanded');
+      document.querySelectorAll('.blog-card').forEach(c => c.classList.remove('expanded'));
+      if (!isExpanded) card.classList.add('expanded');
+    }
+
+    fetch("php/db_blog.php")
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          const container = document.getElementById("blog-container");
+          container.innerHTML = "";
+          data.posts.forEach(post => {
+            const card = document.createElement("div");
+            card.className = "blog-card";
+            card.style.backgroundImage = `url('${post.banner_image}')`;
+            card.onclick = () => toggleArticle(card);
+
+            card.innerHTML = `
+              <div class="blog-title">${post.title}</div>
+              <div class="blog-content">
+                <p>${post.content}</p>
+              </div>
+            `;
+            container.appendChild(card);
+          });
+        } else {
+          document.getElementById("blog-container").innerHTML = "<p>Unable to load blog posts.</p>";
+        }
+      })
+      .catch(() => {
+        document.getElementById("blog-container").innerHTML = "<p>Unable to connect to the server.</p>";
+      });
+  </script>
+</body>
+</html>

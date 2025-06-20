@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manage Users | Apex Admin</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .admin-section {
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+      color: #fff;
+    }
+
+    .admin-section h2 {
+      margin-bottom: 20px;
+      color: #f04d4d;
+    }
+
+    .admin-section input,
+    .admin-section select,
+    .admin-section button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .admin-section button {
+      background-color: #f04d4d;
+      color: white;
+      cursor: pointer;
+    }
+
+    .admin-section .user-result {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #222;
+      border-left: 4px solid #f04d4d;
+    }
+
+    .admin-section label {
+      font-weight: bold;
+    }
+
+    .admin-navbar {
+      background-color: #1f1f1f;
+      border-bottom: 2px solid #444;
+    }
+
+    .admin-tabs {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      margin: 0;
+    }
+
+    .admin-tabs li {
+      margin: 0 20px;
+    }
+
+    .admin-tabs a {
+      color: #f04d4d;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .admin-tabs a:hover {
+      background-color: #333;
+    }
+
+    .admin-content {
+      padding: 40px;
+      text-align: center;
+    }
+
+    .add-section {
+      margin-top: 60px;
+      border-top: 1px solid #555;
+      padding-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<header class="admin-navbar">
+  <div class="logo-container" style="display: flex; align-items: center; padding-left: 20px;">
+    <img src="assets/logo.png" alt="Logo" style="height: 40px; margin-right: 10px;">
+    <div class="logo" style="color: #f04d4d; font-weight: bold;">Apex Strength</div>
+  </div>
+  <ul class="admin-tabs">
+    <li><a href="index.html">Back</a></li>
+    <li><a href="manageusers.html">Manage Users</a></li>
+    <li><a href="managetrainers.html">Manage Trainers</a></li>
+    <li><a href="manageclasses.html">Manage Classes</a></li>
+    <li><a href="managepromotions.html">Manage Promotions</a></li>
+    <li><a href="manageblog.html">Manage Blog</a></li>
+  </ul>
+</header>
+
+<section class="admin-section">
+  <h2>Search User</h2>
+  <input type="text" id="search-input" placeholder="Enter Name, Email or ID">
+  <button onclick="searchUser()">Search</button>
+  <div id="user-result" class="user-result" style="display:none;"></div>
+</section>
+
+<section class="admin-section add-section"> <!-- ✨ Updated wrapper -->
+  <h2>Add New User</h2>
+  <form id="add-user-form">
+    <label for="name">Name:</label>
+    <input type="text" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" required>
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" required>
+
+    <label for="role">Role:</label>
+    <select name="role" required>
+      <option value="user">User</option>
+      <option value="admin">Admin</option>
+    </select>
+
+    <button type="submit">Add User</button>
+  </form>
+</section>
+
+<script>
+  function searchUser() {
+    const query = document.getElementById("search-input").value;
+    fetch("php/manageusers.php?search=" + encodeURIComponent(query))
+      .then(res => res.json())
+      .then(data => {
+        const resultDiv = document.getElementById("user-result");
+        if (data.success) {
+          resultDiv.innerHTML = `
+            <strong>ID:</strong> ${data.user.id}<br>
+            <strong>Name:</strong> ${data.user.name}<br>
+            <strong>Email:</strong> ${data.user.email}<br>
+            <strong>Role:</strong> ${data.user.role}<br>
+            <strong>Membership:</strong> ${data.user.membership ?? "None"}<br><br>
+            <button onclick="deleteUser(${data.user.id})" style="background-color:#f04d4d; color:white; border:none; padding:10px; border-radius:5px; cursor:pointer;">Delete User</button>
+          `;
+          resultDiv.style.display = "block";
+        } else {
+          resultDiv.innerText = "User not found.";
+          resultDiv.style.display = "block";
+        }
+      });
+  }
+
+  document.getElementById("add-user-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch("php/manageusers.php", {
+      method: "POST",
+      body: formData
+    })
+    .then(res => res.text())
+    .then(response => {
+      alert(response);
+      this.reset();
+    });
+  });
+
+  function deleteUser(userId) {
+    if (!confirm("Are you sure you want to delete this user?")) return;
+
+    const formData = new FormData();
+    formData.append("delete_user_id", userId);
+
+    fetch("php/manageusers.php", {
+      method: "POST",
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert(data.message);
+        document.getElementById("user-result").style.display = "none";
+      } else {
+        alert("Failed to delete user: " + data.message);
+      }
+    })
+    .catch(() => alert("Error occurred while trying to delete the user."));
+  }
+</script>
+
+</body>
+</html>

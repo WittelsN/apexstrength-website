@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apex Strength | Home</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="Logo" />
+      <div class="logo">Apex Strength</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="trainers.html">Trainers</a></li>
+        <li><a href="classes.html">Classes</a></li>
+        <li><a href="membership.html">Membership</a></li>
+        <li><a href="locations.html">Locations</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="#" class="login-btn">Login</a></li>
+        <li><a href="#" class="register-btn">Register</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <div class="hero-overlay">
+      <h1 class="hero-title">
+        <div class="hero-text-box">Apex Strength </br> <div class="h2">Develop your inner beast</div>  </div>
+      </h1> 
+      <img src="assets/hero.jpg" alt="Gym Hero Banner" class="hero-img" />
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about">
+    <h2 class="h2">A little bit About us</h2>
+    <p>At Apex Strength, we believe fitness is more than a goal — it's a lifestyle.
+    With state-of-the-art facilities, expert trainers, and a variety of classes tailored to all fitness levels,
+    we empower individuals to become the strongest version of themselves. Whether you're just starting out or pushing your
+    limits, Apex Strength is your partner in achieving lasting results and building a healthier, more confident you.</p>
+  </section>
+
+  <!-- Trainers Section -->
+  <!-- Trainers Section -->
+<!-- Trainers Section -->
+<section class="feature-block">
+  <h2 class="h2">Trainers</h2>
+  <div class="card-grid" id="trainer-cards">
+    <!-- Trainer cards will be inserted here -->
+  </div>
+</section>
+
+
+
+  <!-- Classes Section -->
+  <!-- Classes Section -->
+<section class="feature-block">
+  <h2 class="h2">Classes</h2>
+  <div class="card-grid" id="class-cards">
+    <!-- Class cards will be dynamically inserted here -->
+  </div>
+</section>
+
+
+  <!-- Membership CTA -->
+  <section class="cta-membership" style="background: url('assets/membershipbanner.jpg') no-repeat center center/cover;">
+    <div class="cta-overlay">
+      <h3>Membership</h3>
+      <a href="membership.html" class="join-now-btn">Join Now</a>
+    </div>
+  </section>
+
+<!-- Promotions Section -->
+<section class="feature-block">
+  <h2 class="h2">Promotions</h2>
+  <div class="card-grid" id="promotion-cards">
+    <!-- Dynamic promotion cards will be inserted here -->
+  </div>
+</section>
+
+
+  <!-- Locations Section -->
+  <section class="feature-block">
+    <h2 class="h2">Locations</h2>
+    <div class="card-grid">
+      <div class="card">
+        <img src="assets/location1.png" alt="Location 1" class="card-img" />
+        <div class="card-info">
+          <strong>📍 Sandton</strong>
+        </div>
+        <a href="locations.html" class="abovefooter-btn">Learn More</a>
+      </div>
+      <div class="card">
+        <img src="assets/location2.png" alt="Location 2" class="card-img" />
+        <div class="card-info">
+          <strong>📍 Melrose</strong>
+        </div>
+        <a href="locations.html" class="abovefooter-btn">Learn More</a>
+      </div>
+      <div class="card">
+        <img src="assets/location3.png" alt="Location 3" class="card-img" />
+        <div class="card-info">
+          <strong>📍 Bedfordview</strong>
+        </div>
+        <a href="locations.html" class="abovefooter-btn">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer universal-footer">
+  <div class="footer-links">
+    <a href="https://www.planetfitness.co.za/" target="_blank" rel="noopener noreferrer">Planet Fitness South Africa</a> |
+    <a href="https://www.facebook.com/PlanetFitnessSA" target="_blank" rel="noopener noreferrer">Facebook</a> |
+    <a href="https://www.instagram.com/planetfitnessza/" target="_blank" rel="noopener noreferrer">Instagram</a>
+  </div>
+  <p>&copy; 2025 Apex Strength. All rights reserved.</p>
+</footer>
+
+
+  <!-- Slide-In Login Panel -->
+  <div id="login-panel" class="login-panel">
+    <div class="login-content">
+      <h3>Login</h3>
+      <form id="login-form">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" placeholder="Enter your email" required>
+
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" placeholder="Enter your password" required>
+
+        <button type="submit" class="login-submit-btn">Login</button>
+      </form>
+      <span class="close-login" onclick="toggleLogin()">×</span>
+    </div>
+  </div>
+
+  <!-- Slide-In Register Panel -->
+  <div id="register-panel" class="login-panel">
+    <div class="login-content">
+      <h3>Register</h3>
+      <form id="register-form" method="post" action="/apexstrength/php/register.php">
+        <label for="register-name">Full Name</label>
+        <input type="text" id="register-name" placeholder="Enter your name" required>
+
+        <label for="register-email">Email</label>
+        <input type="email" id="register-email" placeholder="Enter your email" required>
+
+        <label for="register-password">Password</label>
+        <input type="password" id="register-password" placeholder="Create a password" required>
+
+        <button type="submit" class="login-submit-btn">Register</button>
+      </form>
+      <span class="close-login" onclick="toggleRegister()">×</span>
+    </div>
+  </div>
+
+ <script>
+  function toggleLogin() {
+    document.getElementById("login-panel").classList.toggle("active");
+  }
+
+  function toggleRegister() {
+    document.getElementById("register-panel").classList.toggle("active");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Toggle login/register panels
+    document.querySelectorAll(".login-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleLogin();
+      });
+    });
+
+    document.querySelectorAll(".register-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleRegister();
+      });
+    });
+
+    // Handle registration
+    document.getElementById("register-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      fetch("php/register.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          name: document.getElementById("register-name").value,
+          email: document.getElementById("register-email").value,
+          password: document.getElementById("register-password").value
+        })
+      })
+      .then(res => res.text())
+      .then(data => {
+        if (data.trim() === "success") {
+          alert("Registration successful!");
+          toggleRegister();
+        } else {
+          alert(data);
+        }
+      });
+    });
+
+    // Handle login
+    document.getElementById("login-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      fetch("php/login.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          email: document.getElementById("login-email").value,
+          password: document.getElementById("login-password").value
+        })
+      })
+      .then(res => res.text())
+      .then(data => {
+        if (data.trim() === "success") {
+          alert("Login successful!");
+          toggleLogin();
+          location.reload();
+        } else {
+          alert(data);
+        }
+      });
+    });
+
+    // Load session info
+    fetch("php/check_session.php")
+      .then(res => res.json())
+      .then(data => {
+        if (data.loggedIn) {
+          document.querySelectorAll(".login-btn, .register-btn").forEach(btn => btn.style.display = "none");
+          const navList = document.querySelector("nav ul");
+
+          const profileTab = document.createElement("li");
+          const profileLink = document.createElement("a");
+          profileLink.href = "profile.php";
+          profileLink.innerText = "Profile";
+          profileTab.appendChild(profileLink);
+          navList.appendChild(profileTab);
+
+          if (data.role === "admin") {
+            const adminTab = document.createElement("li");
+            const adminLink = document.createElement("a");
+            adminLink.href = "manageusers.html";
+            adminLink.innerText = "Admin";
+            adminTab.appendChild(adminLink);
+            navList.appendChild(adminTab);
+          }
+        }
+      });
+
+    // Load homepage data: trainers, classes, promotions
+    fetch("php/db_index.php")
+      .then(res => res.json())
+      .then(data => {
+        // === Trainers ===
+        const trainerGrid = document.getElementById("trainer-cards");
+        trainerGrid.innerHTML = "";
+        data.trainers.slice(0, 3).forEach(trainer => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <img src="${trainer.profile_image}" alt="${trainer.name}" class="card-img" />
+            <div class="card-info">
+              <strong>${trainer.name}</strong>
+              <span>${trainer.specialization}</span>
+            </div>
+            <a href="trainers.html" class="abovefooter-btn">Learn More</a>
+          `;
+          trainerGrid.appendChild(card);
+        });
+
+        // === Classes ===
+        const classGrid = document.getElementById("class-cards");
+        classGrid.innerHTML = "";
+        data.classes.slice(0, 3).forEach(gymClass => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <img src="${gymClass.class_image}" alt="${gymClass.name}" class="card-img" />
+            <div class="card-info">
+              <strong>${gymClass.name}</strong>
+            </div>
+            <a href="classes.html" class="abovefooter-btn">Learn More</a>
+          `;
+          classGrid.appendChild(card);
+        });
+
+// === Promotions ===
+const promoGrid = document.getElementById("promotion-cards");
+promoGrid.innerHTML = "";
+data.promotions.slice(0, 3).forEach(promo => {
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const dateRange = promo.date_range || '';
+
+  card.innerHTML = `
+    <img src="${promo.banner_image}" alt="${promo.title}" class="card-img" />
+    <div class="card-info">
+      <strong>${promo.title}</strong>
+      <span>${dateRange}</span>
+      <p class="full-desc" style="display: none;">${promo.description}</p>
+    </div>
+    <button class="abovefooter-btn learn-more-btn">Learn More</button>
+  `;
+
+  // Add toggle functionality
+  card.querySelector(".learn-more-btn").addEventListener("click", function () {
+    const fullDesc = card.querySelector(".full-desc");
+    const isVisible = fullDesc.style.display === "block";
+    fullDesc.style.display = isVisible ? "none" : "block";
+    this.textContent = isVisible ? "Learn More" : "Show Less";
+  });
+
+  promoGrid.appendChild(card);
+});
+
+      })
+      .catch(() => {
+        document.getElementById("trainer-cards").innerHTML = "<p>Unable to load trainers.</p>";
+        document.getElementById("class-cards").innerHTML = "<p>Unable to load classes.</p>";
+        document.getElementById("promotion-cards").innerHTML = "<p>Unable to load promotions.</p>";
+      });
+  });
+</script>
+
+</body>
+</html>

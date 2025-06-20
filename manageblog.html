@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manage Blog | Apex Admin</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .admin-section {
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h2 {
+      color: #f04d4d;
+      margin-bottom: 20px;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 16px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      background-color: #f04d4d;
+      color: white;
+      cursor: pointer;
+    }
+
+    .admin-navbar {
+      background-color: #1f1f1f;
+      border-bottom: 2px solid #444;
+    }
+
+    .admin-tabs {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      margin: 0;
+    }
+
+    .admin-tabs li {
+      margin: 0 20px;
+    }
+
+    .admin-tabs a {
+      color: #f04d4d;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+    }
+
+    .admin-tabs a:hover {
+      background-color: #333;
+    }
+
+    .search-section {
+      margin-bottom: 50px;
+      border-bottom: 1px solid #444;
+      padding-bottom: 30px;
+    }
+
+    .search-result {
+      margin-top: 20px;
+      background-color: #222;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .search-result h3 {
+      color: #f04d4d;
+    }
+  </style>
+</head>
+<body>
+
+<header class="admin-navbar">
+  <div class="logo-container" style="display: flex; align-items: center; padding-left: 20px;">
+    <img src="assets/logo.png" alt="Logo" style="height: 40px; margin-right: 10px;">
+    <div class="logo" style="color: #f04d4d; font-weight: bold;">Apex Strength</div>
+  </div>
+  <ul class="admin-tabs">
+    <li><a href="index.html">Back</a></li>
+    <li><a href="manageusers.html">Manage Users</a></li>
+    <li><a href="managetrainers.html">Manage Trainers</a></li>
+    <li><a href="manageclasses.html">Manage Classes</a></li>
+    <li><a href="managepromotions.html">Manage Promotions</a></li>
+    <li><a href="manageblog.html">Manage Blog</a></li>
+  </ul>
+</header>
+
+<section class="admin-section">
+  <!-- Search + Delete -->
+  <div class="search-section">
+    <h2>Search & Delete Blog Post</h2>
+    <input type="text" id="blog-search-input" placeholder="Enter blog ID or title..." />
+    <button onclick="searchBlog()">Search</button>
+
+    <div id="blog-result" class="search-result" style="display: none;">
+      <h3>Blog Found</h3>
+      <p><strong>ID:</strong> <span id="blog-id"></span></p>
+      <p><strong>Title:</strong> <span id="blog-title"></span></p>
+      <button onclick="deleteBlog()">Delete Blog Post</button>
+    </div>
+  </div>
+
+  <!-- Add Blog -->
+  <h2>Add New Blog Post</h2>
+  <form id="add-blog-form" enctype="multipart/form-data">
+    <label>Title:</label>
+    <input type="text" name="title" required>
+
+    <label>Content:</label>
+    <textarea name="content" rows="6" required></textarea>
+
+    <label>Banner Image:</label>
+    <input type="file" name="banner_image" accept="image/*" required>
+
+    <button type="submit">Add Blog Post</button>
+  </form>
+</section>
+
+<script>
+  // Add Blog
+  document.getElementById("add-blog-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    fetch("php/manageblog.php", {
+      method: "POST",
+      body: formData
+    })
+    .then(res => res.text())
+    .then(response => {
+      alert(response);
+      this.reset();
+    });
+  });
+
+  // Search Blog
+  function searchBlog() {
+    const search = document.getElementById("blog-search-input").value.trim();
+    if (!search) return;
+
+    fetch(`php/manageblog.php?search=${encodeURIComponent(search)}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          document.getElementById("blog-result").style.display = "block";
+          document.getElementById("blog-id").textContent = data.blog.id;
+          document.getElementById("blog-title").textContent = data.blog.title;
+          document.getElementById("blog-date").textContent = data.blog.created_at;
+        } else {
+          alert(data.message);
+          document.getElementById("blog-result").style.display = "none";
+        }
+      });
+  }
+
+  // Delete Blog
+  function deleteBlog() {
+    const blogId = document.getElementById("blog-id").textContent;
+
+    if (!confirm("Are you sure you want to delete this blog post?")) return;
+
+    fetch("php/manageblog.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `delete_id=${encodeURIComponent(blogId)}`
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message);
+      if (data.success) {
+        document.getElementById("blog-result").style.display = "none";
+        document.getElementById("blog-search-input").value = "";
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

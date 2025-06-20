@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apex Strength | Membership</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    .hidden { display: none; }
+    .membership-card .expandable-options {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .membership-card .plan-option {
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .plan-option:hover {
+      background-color: #555;
+    }
+    .payment-popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .payment-popup.hidden { display: none; }
+    .payment-popup-content {
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      color: #fff;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+    }
+    .payment-popup-content input {
+      margin: 5px 0;
+      padding: 8px;
+      width: 90%;
+      background-color: #333;
+      border: none;
+      color: white;
+      border-radius: 5px;
+    }
+    .close-payment {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<header class="navbar">
+  <div class="logo-container">
+    <img src="assets/logo.png" alt="Logo" />
+    <div class="logo">Apex Strength</div>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="trainers.html">Trainers</a></li>
+      <li><a href="classes.html">Classes</a></li>
+      <li><a href="membership.html">Membership</a></li>
+      <li><a href="locations.html">Locations</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="#" class="login-btn">Login</a></li>
+      <li><a href="#" class="register-btn">Register</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Banner -->
+<section class="hero-banner trainers-page">
+  <div class="hero-overlay">
+    <h1 class="hero-title">
+      <div class="hero-text-box">Memberships</div>
+    </h1>
+    <img src="assets/membershipbanner.jpg" alt="Membership Banner" class="hero-img" />
+  </div>
+</section>
+
+<!-- Membership Options -->
+<section class="feature-block">
+  <h3 class="h2">Choose Your Membership</h3>
+  <div class="membership-options">
+    <div class="membership-card">
+      <div class="card-info">
+        <strong>Standard Membership</strong>
+      </div>
+      <img src="assets/standardcard.png" alt="Standard Membership Card" class="card-img" />
+      <p class="membership-price">From R299 / month</p>
+      <div class="expandable-options hidden">
+        <button class="plan-option" data-name="Standard (Monthly)" data-cost="299">Monthly - R299</button>
+        <button class="plan-option" data-name="Standard (Yearly)" data-cost="3229">Yearly - R3229</button>
+        <button class="plan-option" data-name="Standard (Monthly Family)" data-cost="999">Monthly Family - R999</button>
+        <button class="plan-option" data-name="Standard (Yearly Family)" data-cost="10499">Yearly Family - R10 499</button>
+      </div>
+    </div>
+
+    <div class="membership-card">
+      <div class="card-info">
+        <strong>Premium Membership</strong>
+      </div>
+      <img src="assets/premiumcard.png" alt="Premium Membership Card" class="card-img" />
+      <p class="membership-price">From R699 / month</p>
+      <div class="expandable-options hidden">
+        <button class="plan-option" data-name="Premium (Monthly)" data-cost="699">Monthly - R699</button>
+        <button class="plan-option" data-name="Premium (Yearly)" data-cost="7549">Yearly - R7549</button>
+        <button class="plan-option" data-name="Premium (Monthly Family)" data-cost="2399">Monthly Family - R2399</button>
+        <button class="plan-option" data-name="Premium (Yearly Family)" data-cost="28499">Yearly Family - R28 499</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="feature-block">
+  <h3 class="h2">Compare Plans</h3>
+  <p style="text-align:center; margin-bottom: 15px;">*Family plans include up to 4 people</p>
+  <div class="comparison-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Benefits</th>
+          <th>Standard</th>
+          <th>Premium</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Access to one selected gym</td><td>✔</td><td>✘</td></tr>
+        <tr><td>Access to all Apex Strength gyms in South Africa</td><td>✘</td><td>✔</td></tr>
+        <tr><td>3 private classes & regular classes per week</td><td>✔</td><td>✘</td></tr>
+        <tr><td>Unlimited private & regular classes</td><td>✘</td><td>✔</td></tr>
+        <tr><td>Free Apex Kids facility access</td><td>✘</td><td>✔</td></tr>
+        <tr><td>Sauna access</td><td>✘</td><td>✔</td></tr>
+        <tr><td>Jacuzzi access</td><td>✘</td><td>✔</td></tr>
+        <tr><td>Premium Lounge access</td><td>✘</td><td>✔</td></tr>
+        <tr><td>Free Apex Strength bottle, gym bag & cap</td><td>✘</td><td>✔</td></tr>
+        <tr><td>Premium Access Card</td><td>✘</td><td>✔</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- Payment Popup -->
+<div id="payment-popup" class="payment-popup hidden">
+  <div class="payment-popup-content">
+    <span class="close-payment" onclick="closePaymentPopup()">&times;</span>
+    <h3 class="h2">Complete Your Payment</h3>
+    <p id="selected-membership-name"></p>
+    <p id="membership-cost"></p>
+    <form id="payment-form">
+      <input type="text" id="bank-name" placeholder="Bank Name" required><br>
+      <input type="text" id="card-number" placeholder="Card Number" required><br>
+      <input type="text" id="cv" placeholder="CV" required><br>
+      <input type="text" id="expiry-date" placeholder="Expiry Date (MM/YY)" required><br>
+      <button type="submit" class="login-submit-btn">Make Payment</button>
+    </form>
+    <div id="payment-status" class="hidden"></div>
+  </div>
+</div>
+
+<script>
+  let selectedPlan = null;
+
+  function closePaymentPopup() {
+    document.getElementById("payment-popup").classList.add("hidden");
+  }
+
+  function finishPayment() {
+    document.getElementById("payment-popup").classList.add("hidden");
+    alert("Membership successfully selected!");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".toggle-expand").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const parent = btn.closest(".membership-card");
+        const expandable = parent.querySelector(".expandable-options");
+        expandable.classList.toggle("hidden");
+      });
+    });
+
+    document.querySelectorAll(".plan-option").forEach(button => {
+      button.addEventListener("click", () => {
+        selectedPlan = {
+          name: button.dataset.name,
+          cost: button.dataset.cost
+        };
+
+        document.getElementById("selected-membership-name").innerText = selectedPlan.name;
+        document.getElementById("membership-cost").innerText = "Amount: R" + selectedPlan.cost;
+        document.getElementById("payment-popup").classList.remove("hidden");
+      });
+    });
+
+    document.getElementById("payment-form")?.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const bank = document.getElementById("bank-name").value.trim();
+      const card = document.getElementById("card-number").value.trim();
+      const cv = document.getElementById("cv").value.trim();
+      const expiry = document.getElementById("expiry-date").value.trim();
+
+      if (!bank || !card || !cv || !expiry) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      document.getElementById("payment-status").innerText = "Processing...";
+      document.getElementById("payment-status").classList.remove("hidden");
+      document.getElementById("payment-form").style.display = "none";
+
+      setTimeout(() => {
+        document.getElementById("payment-status").innerHTML = "Payment Successful!<br><button onclick='finishPayment()' class='register-button'>Finish</button>";
+      }, 3000);
+    });
+  });
+</script>
+
+</body>
+</html>
