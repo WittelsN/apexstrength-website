@@ -6,7 +6,7 @@ $password = 'UZJFKFtxRYkTNsytXeLGrzuDXjYsENlk';
 $database = 'railway';
 
 // Create connection
-$conn = new mysqli($host, $user, $password, $database);
+$conn = new mysqli($host, $user, $password, $database, $port);
 
 // Check connection
 if ($conn->connect_error) {

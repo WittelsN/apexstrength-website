@@ -1,6 +1,13 @@
 <?php
 session_start();
-$conn = new mysqli('127.0.0.1:3307', 'root', '2Noah!haoN2', 'apexstrength');
+
+$host = 'turntable.proxy.rlwy.net';
+$port = 37104;
+$user = 'root';
+$password = 'UZJFKFtxRYkTNsytXeLGrzuDXjYsENlk';
+$database = 'railway';
+
+$conn = new mysqli($host, $user, $password, $database, $port);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

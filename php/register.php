@@ -1,10 +1,11 @@
 <?php
-$host = '127.0.0.1:3307';
-$db = 'apexstrength';
+$host = 'turntable.proxy.rlwy.net';
+$port = 37104;
+$db = 'railway';
 $user = 'root';
-$pass = '2Noah!haoN2';
+$pass = 'UZJFKFtxRYkTNsytXeLGrzuDXjYsENlk';
 
-$conn = new mysqli($host, $user, $pass, $db);
+$conn = new mysqli($host, $user, $pass, $db, $port);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }

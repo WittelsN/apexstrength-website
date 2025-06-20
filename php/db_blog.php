@@ -1,12 +1,12 @@
 <?php
 
-$host = 'mysql.railway.internal';
-$port = 3306;
+$host = 'hopper.proxy.rlwy.net';
+$port = 13403;
 $user = 'root';
-$password = 'xwOUJonIxgZWDjrTdzwWLYsJSazIcthn'; 
+$password = 'xwOUJonIxgZWDjrTdzwWLYsJSazIcthn';
 $database = 'railway';
 
-$conn = new mysqli($host, $user, $password, $database);
+$conn = new mysqli($host, $user, $password, $database, $port);
 if ($conn->connect_error) {
   die(json_encode(['success' => false, 'message' => 'Database connection failed']));
 }

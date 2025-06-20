@@ -1,5 +1,11 @@
 <?php
-$conn = new mysqli("127.0.0.1:3307", "root", "2Noah!haoN2", "apexstrength");
+$host = 'turntable.proxy.rlwy.net';
+$port = 37104;
+$user = 'root';
+$password = 'UZJFKFtxRYkTNsytXeLGrzuDXjYsENlk';
+$database = 'railway';
+
+$conn = new mysqli($host, $user, $password, $database, $port);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -53,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title'], $_POST['code
     }
 
     $stmt = $conn->prepare("INSERT INTO promotions (title, code, description, start_date, end_date, banner_image) VALUES (?, ?, ?, ?, ?, ?)");
+    $null = NULL;
     $stmt->bind_param("sssssb", $title, $code, $description, $start_date, $end_date, $null);
     $stmt->send_long_data(5, $imageData);
 
