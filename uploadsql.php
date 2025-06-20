@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 }
 
 // Load and run SQL file
-$sql = file_get_contents("apexstrength.sql");
+$sql = file_get_contents("apexstrengthdb.sql");
 if ($conn->multi_query($sql)) {
     echo "✅ Import successful.";
 } else {
