@@ -1,8 +1,8 @@
 <?php
-$host = 'turntable.proxy.rlwy.net';
+$host = 'hopper.proxy.rlwy.net';
 $port = 37104;
 $user = 'root';
-$password = 'UZJFKFtxRYkTNsytXeLGrzuDXjYsENlk'; 
+$password = 'xwOUJonIxgZWDjrTdzwWLYsJSazIcthn'; 
 $database = 'railway';
 
 // Create connection

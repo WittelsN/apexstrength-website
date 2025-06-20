@@ -1,9 +1,9 @@
 <?php
-$host = 'turntable.proxy.rlwy.net';
+$host = 'hopper.proxy.rlwy.net';
 $port = 37104;
 $db = 'railway';
 $user = 'root';
-$pass = 'UZJFKFtxRYkTNsytXeLGrzuDXjYsENlk';
+$pass = 'xwOUJonIxgZWDjrTdzwWLYsJSazIcthn';
 
 $conn = new mysqli($host, $user, $pass, $db, $port);
 if ($conn->connect_error) {
