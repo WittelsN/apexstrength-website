@@ -153,12 +153,12 @@
 </section>
 
 <script>
+  // ADD PROMOTION
   document.getElementById("add-promo-form").addEventListener("submit", function (e) {
     e.preventDefault();
     const form = this;
     const formData = new FormData(form);
 
-    // Get image file and append to formData
     const imageInput = document.querySelector('input[name="banner_image"]');
     if (imageInput.files.length > 0) {
       formData.append("banner_image", imageInput.files[0]);
@@ -175,6 +175,7 @@
     });
   });
 
+  // SEARCH PROMOTION
   function searchPromotion() {
     const search = document.getElementById("promo-search-input").value.trim();
     if (!search) return;
@@ -197,8 +198,13 @@
       });
   }
 
+  // DELETE PROMOTION
   function deletePromotion() {
     const promoId = document.getElementById("promo-id").textContent;
+    if (!promoId || isNaN(promoId)) {
+      alert("Invalid promotion ID.");
+      return;
+    }
 
     if (!confirm("Are you sure you want to delete this promotion?")) return;
 
@@ -217,6 +223,7 @@
     });
   }
 </script>
+
 
 
 </body>
