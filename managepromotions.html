@@ -176,13 +176,17 @@
   });
 
   // SEARCH PROMOTION
-  function searchPromotion() {
-    const search = document.getElementById("promo-search-input").value.trim();
-    if (!search) return;
+ function searchPromotion() {
+  const search = document.getElementById("promo-search-input").value.trim();
+  if (!search) return;
 
-    fetch(`php/managepromotions.php?search=${encodeURIComponent(search)}`)
-      .then(res => res.json())
-      .then(data => {
+  fetch(`php/managepromotions.php?search=${encodeURIComponent(search)}`)
+    .then(res => res.text()) // Get raw response first
+    .then(text => {
+      try {
+        const data = JSON.parse(text);
+        console.log("Search response:", data);
+
         if (data.success) {
           document.getElementById("promo-result").style.display = "block";
           document.getElementById("promo-id").textContent = data.promo.id;
@@ -195,8 +199,18 @@
           alert(data.message);
           document.getElementById("promo-result").style.display = "none";
         }
-      });
-  }
+      } catch (err) {
+        console.error("Failed to parse JSON:", err);
+        console.error("Raw response:", text);
+        alert("Unexpected server response. Check console.");
+      }
+    })
+    .catch(err => {
+      console.error("Fetch error:", err);
+      alert("Failed to reach the server.");
+    });
+}
+
 
   // DELETE PROMOTION
   function deletePromotion() {
@@ -223,8 +237,6 @@
     });
   }
 </script>
-
-
 
 </body>
 </html>
