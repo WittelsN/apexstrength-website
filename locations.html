@@ -233,6 +233,108 @@
   }
 </script>
 
+<script>
+  function toggleLogin() {
+    document.getElementById("login-panel")?.classList.toggle("active");
+  }
+
+  function toggleRegister() {
+    document.getElementById("register-panel")?.classList.toggle("active");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Show login panel
+    document.querySelectorAll(".login-btn").forEach(btn => {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        toggleLogin();
+      });
+    });
+
+    // Show register panel
+    document.querySelectorAll(".register-btn").forEach(btn => {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        toggleRegister();
+      });
+    });
+
+    // Handle registration form
+    document.getElementById("register-form")?.addEventListener("submit", function (e) {
+      e.preventDefault();
+      fetch("php/register.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          name: document.getElementById("register-name").value,
+          email: document.getElementById("register-email").value,
+          password: document.getElementById("register-password").value
+        })
+      })
+      .then(res => res.text())
+      .then(data => {
+        if (data.trim() === "success") {
+          alert("Registration successful!");
+          toggleRegister();
+        } else {
+          alert(data);
+        }
+      });
+    });
+
+    // Handle login form
+    document.getElementById("login-form")?.addEventListener("submit", function (e) {
+      e.preventDefault();
+      fetch("php/login.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          email: document.getElementById("login-email").value,
+          password: document.getElementById("login-password").value
+        })
+      })
+      .then(res => res.text())
+      .then(data => {
+        if (data.trim() === "success") {
+          alert("Login successful!");
+          toggleLogin();
+          location.reload();
+        } else {
+          alert(data);
+        }
+      });
+    });
+
+    // Check session for logged in user
+    fetch("php/check_session.php")
+      .then(res => res.json())
+      .then(data => {
+        if (data.loggedIn) {
+          document.querySelectorAll(".login-btn, .register-btn").forEach(btn => btn.style.display = "none");
+
+          const navList = document.querySelector("nav ul");
+
+          const profileItem = document.createElement("li");
+          const profileLink = document.createElement("a");
+          profileLink.href = "profile.html";
+          profileLink.innerText = "Profile";
+          profileItem.appendChild(profileLink);
+          navList.appendChild(profileItem);
+
+          if (data.role === "admin") {
+            const adminItem = document.createElement("li");
+            const adminLink = document.createElement("a");
+            adminLink.href = "manageusers.html";
+            adminLink.innerText = "Admin";
+            adminItem.appendChild(adminLink);
+            navList.appendChild(adminItem);
+          }
+        }
+      });
+  });
+</script>
+
+
 </body>
 </html>
 
