@@ -10,57 +10,68 @@
 </head>
 <body>
 
-  <style>
-    /* Slide-in Panels */
-.slide-panel {
+ <style>
+/* Styled Slide-In Panels */
+.login-panel {
   position: fixed;
   top: 0;
   right: -400px;
   width: 350px;
   height: 100%;
-  background-color: #111;
-  color: #fff;
-  padding: 30px;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.4);
-  z-index: 1000;
+  background-color: #1e1e1e;
+  color: white;
+  z-index: 10000;
   transition: right 0.3s ease-in-out;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.4);
+  padding: 30px;
 }
 
-.slide-panel.active {
+.login-panel.active {
   right: 0;
 }
 
-.slide-panel.right {
-  right: -400px;
-}
-
-.panel-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.panel-form input {
-  margin: 10px 0;
-  padding: 10px;
-  font-size: 16px;
-}
-
-.register-button {
-  margin-top: 10px;
-  padding: 12px;
+.login-content h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 24px;
   font-weight: bold;
-  background-color: #e11d48;
+}
+
+.login-content input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
   border: none;
+  border-radius: 5px;
+  background-color: #333;
   color: white;
+}
+
+.login-submit-btn {
+  background-color: #e11d48;
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  font-weight: bold;
   cursor: pointer;
   transition: background 0.3s;
+  border-radius: 5px;
 }
 
-.register-button:hover {
+.login-submit-btn:hover {
   background-color: #9f1239;
 }
 
-  </style>
+.close-login {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+</style>
+
 
 <header class="navbar">
   <div class="logo-container">
@@ -163,25 +174,38 @@
   <p>&copy; 2025 Apex Strength. All rights reserved.</p>
 </footer>
 
-<!-- Slide-in Login/Register Panels -->
-<div id="login-panel" class="slide-panel">
-  <form id="login-form" class="panel-form">
-    <h2>Login</h2>
-    <input type="email" id="login-email" placeholder="Email" required />
-    <input type="password" id="login-password" placeholder="Password" required />
-    <button type="submit" class="register-button">Login</button>
-  </form>
+<!-- Login Panel -->
+<div id="login-panel" class="login-panel">
+  <div class="login-content">
+    <h3>Login</h3>
+    <form id="login-form">
+      <label for="login-email">Email</label>
+      <input type="email" id="login-email" placeholder="Enter your email" required>
+      <label for="login-password">Password</label>
+      <input type="password" id="login-password" placeholder="Enter your password" required>
+      <button type="submit" class="login-submit-btn">Login</button>
+    </form>
+    <span class="close-login" onclick="toggleLogin()">×</span>
+  </div>
 </div>
 
-<div id="register-panel" class="slide-panel right">
-  <form id="register-form" class="panel-form">
-    <h2>Register</h2>
-    <input type="text" id="register-name" placeholder="Full Name" required />
-    <input type="email" id="register-email" placeholder="Email" required />
-    <input type="password" id="register-password" placeholder="Password" required />
-    <button type="submit" class="register-button">Register</button>
-  </form>
+<!-- Register Panel -->
+<div id="register-panel" class="login-panel">
+  <div class="login-content">
+    <h3>Register</h3>
+    <form id="register-form">
+      <label for="register-name">Full Name</label>
+      <input type="text" id="register-name" placeholder="Enter your name" required>
+      <label for="register-email">Email</label>
+      <input type="email" id="register-email" placeholder="Enter your email" required>
+      <label for="register-password">Password</label>
+      <input type="password" id="register-password" placeholder="Create a password" required>
+      <button type="submit" class="login-submit-btn">Register</button>
+    </form>
+    <span class="close-login" onclick="toggleRegister()">×</span>
+  </div>
 </div>
+
 
 
 <script>
