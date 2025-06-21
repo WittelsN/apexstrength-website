@@ -191,6 +191,25 @@
   </div>
 </div>
 
+<!-- Payment Popup -->
+<div id="payment-popup" class="payment-popup hidden">
+  <div class="payment-popup-content">
+    <span class="close-payment" onclick="closePaymentPopup()">×</span>
+    <h3>Complete Payment</h3>
+    <p id="selected-membership-name"></p>
+    <p id="membership-cost"></p>
+    <form id="payment-form">
+      <input type="text" id="bank-name" placeholder="Bank Name" required>
+      <input type="text" id="card-number" placeholder="Card Number" required>
+      <input type="text" id="cv" placeholder="CV" required>
+      <input type="text" id="expiry-date" placeholder="Expiry Date (MM/YY)" required>
+      <button type="submit" class="register-button">Make Payment</button>
+    </form>
+    <div id="payment-status" class="hidden"></div>
+  </div>
+</div>
+
+
 <script>
   let selectedPlan = null;
 
