@@ -17,7 +17,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
   }
 
-  $conn = new mysqli("127.0.0.1:3307", "root", "2Noah!haoN2", "apexstrength");
+  // ✅ Updated connection for Railway environment
+  $conn = new mysqli(
+    getenv('MYSQLHOST'),
+    getenv('MYSQLUSER'),
+    getenv('MYSQLPASSWORD'),
+    getenv('MYSQLDATABASE')
+  );
 
   if ($conn->connect_error) {
     echo "db_error";
