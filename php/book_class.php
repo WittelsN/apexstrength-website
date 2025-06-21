@@ -17,13 +17,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
   }
 
-  // ✅ Updated connection for Railway environment
-  $conn = new mysqli(
-    getenv('MYSQLHOST'),
-    getenv('MYSQLUSER'),
-    getenv('MYSQLPASSWORD'),
-    getenv('MYSQLDATABASE')
-  );
+  // ✅ Railway connection settings
+  $host = 'hopper.proxy.rlwy.net';
+  $port = 13403;
+  $user = 'root';
+  $password = 'xwOUJonIxgZWDjrTdzwWLYsJSazIcthn';
+  $database = 'railway';
+
+  $conn = new mysqli($host, $user, $password, $database, $port);
 
   if ($conn->connect_error) {
     echo "db_error";
