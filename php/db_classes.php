@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("hopper.proxy.rlwy.net", "root", "xwOUJonIxgZWDjrTdzwWLYsJSazIcthn", "railway", 3306);
+$conn = new mysqli("hopper.proxy.rlwy.net", "root", "xwOUJonIxgZWDjrTdzwWLYsJSazIcthn", "railway", 13403);
 
 if ($conn->connect_error) {
     die(json_encode(["error" => "DB connection failed"]));
