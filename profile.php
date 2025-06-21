@@ -129,10 +129,18 @@ $conn->close();
 </section>
 
 <!-- Footer -->
-<footer class="footer">
-  <a href="contact.html" class="footer-btn">Contact Us</a>
-  <p>Email us at info@apexstrength.com or visit any of our locations nationwide.</p>
+<footer class="footer universal-footer">
+  <div style="text-align: center; color: #ccc; margin-bottom: 10px;">
+    Don't forget to use <strong>#apexstrength</strong> on all social media platforms!
+  </div>
+  <div class="footer-links">
+    <a href="https://www.planetfitness.co.za/" target="_blank" rel="noopener noreferrer">Planet Fitness South Africa</a> |
+    <a href="https://www.facebook.com/PlanetFitnessSA" target="_blank" rel="noopener noreferrer">Facebook</a> |
+    <a href="https://www.instagram.com/planetfitnessza/" target="_blank" rel="noopener noreferrer">Instagram</a>
+  </div>
+  <p>&copy; 2025 Apex Strength. All rights reserved.</p>
 </footer>
+
 
 </body>
 </html>
