@@ -75,20 +75,39 @@ $conn->close();
   <h3 class="h2">Welcome, <?php echo htmlspecialchars($name); ?></h3>
   <p><strong>User ID:</strong> <?php echo htmlspecialchars($user_id); ?></p>
   <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
- <p><strong>Membership:</strong>
-  <?php echo $membership === "None" ? 'None' : htmlspecialchars($membership); ?>
-</p>
-<?php if ($membership === "None"): ?>
-  <a href="membership.html" class="join-now-btn">Join Now</a>
-<?php else: ?>
-  <a href="membership.html" class="join-now-btn">Change Membership</a>
-<?php endif; ?>
 
+  <p><strong>Membership:</strong>
+    <?php
+      function formatMembership($code) {
+        $map = [
+          "standard1" => "Standard Monthly Membership R299/Month",
+          "standard2" => "Standard Yearly Membership R3 229/Year",
+          "standard3" => "Standard Family Monthly Membership R999/Month",
+          "standard4" => "Standard Family Yearly Membership R10 499/Year",
+          "premium1" => "Premium Monthly Membership R699/Month",
+          "premium2" => "Premium Yearly Membership R7 549/Year",
+          "premium3" => "Premium Family Monthly Membership R2 399/Month",
+          "premium4" => "Premium Family Yearly Membership R28 499/Year",
+          "None"      => "None"
+        ];
+        return $map[$code] ?? htmlspecialchars($code);
+      }
+
+      echo formatMembership($membership);
+    ?>
+  </p>
+
+  <?php if ($membership === "None"): ?>
+    <a href="membership.html" class="join-now-btn">Join Now</a>
+  <?php else: ?>
+    <a href="membership.html" class="join-now-btn">Change Membership</a>
+  <?php endif; ?>
 
   <form action="php/logout.php" method="post">
     <button type="submit" class="join-now-btn" style="margin-top: 15px;">Logout</button>
   </form>
 </section>
+
 
 <!-- Bookings -->
 <section class="feature-block">
