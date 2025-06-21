@@ -231,20 +231,6 @@
     document.getElementById("register-panel")?.classList.toggle("active");
   }
 
-  function getMembershipCode(planName) {
-    switch (planName) {
-      case "Standard (Monthly)": return "standard1";
-      case "Standard (Yearly)": return "standard2";
-      case "Standard (Monthly Family)": return "standard3";
-      case "Standard (Yearly Family)": return "standard4";
-      case "Premium (Monthly)": return "premium1";
-      case "Premium (Yearly)": return "premium2";
-      case "Premium (Monthly Family)": return "premium3";
-      case "Premium (Yearly Family)": return "premium4";
-      default: return "unknown";
-    }
-  }
-
   document.addEventListener("DOMContentLoaded", () => {
     // === MEMBERSHIP SELECTION LOGIC ===
     document.querySelectorAll(".toggle-expand")?.forEach(btn => {
@@ -260,7 +246,7 @@
         selectedPlan = {
           name: button.dataset.name,
           cost: button.dataset.cost,
-          code: getMembershipCode(button.dataset.name)
+          code: button.dataset.name  // <-- FIXED: directly use dataset.name
         };
 
         document.getElementById("selected-membership-name").innerText = selectedPlan.name;
@@ -391,6 +377,7 @@
       });
   });
 </script>
+
 
 </body>
 </html>
