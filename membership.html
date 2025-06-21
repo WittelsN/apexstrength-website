@@ -160,228 +160,130 @@
 </section>
 
 <!-- Slide-In Login Panel -->
-<div id="login-panel" class="slide-panel">
-  <form id="login-form" class="auth-form">
+<div id="login-panel" class="login-panel">
+  <div class="login-content">
     <h3>Login</h3>
-    <input type="email" id="login-email" placeholder="Email" required />
-    <input type="password" id="login-password" placeholder="Password" required />
-    <button type="submit" class="login-submit-btn">Login</button>
-  </form>
+    <form id="login-form">
+      <label for="login-email">Email</label>
+      <input type="email" id="login-email" placeholder="Enter your email" required>
+      <label for="login-password">Password</label>
+      <input type="password" id="login-password" placeholder="Enter your password" required>
+      <button type="submit" class="login-submit-btn">Login</button>
+    </form>
+    <span class="close-login" onclick="toggleLogin()">×</span>
+  </div>
 </div>
 
 <!-- Slide-In Register Panel -->
-<div id="register-panel" class="slide-panel">
-  <form id="register-form" class="auth-form">
+<div id="register-panel" class="login-panel">
+  <div class="login-content">
     <h3>Register</h3>
-    <input type="text" id="register-name" placeholder="Full Name" required />
-    <input type="email" id="register-email" placeholder="Email" required />
-    <input type="password" id="register-password" placeholder="Password" required />
-    <button type="submit" class="register-button">Register</button>
-  </form>
-</div>
-
-
-
-<!-- Payment Popup -->
-<div id="payment-popup" class="payment-popup hidden">
-  <div class="payment-popup-content">
-    <span class="close-payment" onclick="closePaymentPopup()">&times;</span>
-    <h3 class="h2">Complete Your Payment</h3>
-    <p id="selected-membership-name"></p>
-    <p id="membership-cost"></p>
-    <form id="payment-form">
-      <input type="text" id="bank-name" placeholder="Bank Name" required><br>
-      <input type="text" id="card-number" placeholder="Card Number" required><br>
-      <input type="text" id="cv" placeholder="CV" required><br>
-      <input type="text" id="expiry-date" placeholder="Expiry Date (MM/YY)" required><br>
-      <button type="submit" class="login-submit-btn">Make Payment</button>
+    <form id="register-form">
+      <label for="register-name">Full Name</label>
+      <input type="text" id="register-name" placeholder="Enter your name" required>
+      <label for="register-email">Email</label>
+      <input type="email" id="register-email" placeholder="Enter your email" required>
+      <label for="register-password">Password</label>
+      <input type="password" id="register-password" placeholder="Create a password" required>
+      <button type="submit" class="login-submit-btn">Register</button>
     </form>
-    <div id="payment-status" class="hidden"></div>
+    <span class="close-login" onclick="toggleRegister()">×</span>
   </div>
 </div>
 
 <script>
-  let selectedPlan = null;
+// === Login/Register Toggle & Auth Logic ===
+function toggleLogin() {
+  document.getElementById("login-panel")?.classList.toggle("active");
+}
+function toggleRegister() {
+  document.getElementById("register-panel")?.classList.toggle("active");
+}
 
-  function closePaymentPopup() {
-    document.getElementById("payment-popup").classList.add("hidden");
-  }
-
-  function finishPayment() {
-    document.getElementById("payment-popup").classList.add("hidden");
-    alert("Membership successfully selected!");
-    location.reload();
-  }
-
-  function toggleLogin() {
-    document.getElementById("login-panel")?.classList.toggle("active");
-  }
-
-  function toggleRegister() {
-    document.getElementById("register-panel")?.classList.toggle("active");
-  }
-
-  function getMembershipCode(planName) {
-    switch (planName) {
-      case "Standard (Monthly)": return "standard1";
-      case "Standard (Yearly)": return "standard2";
-      case "Standard (Monthly Family)": return "standard3";
-      case "Standard (Yearly Family)": return "standard4";
-      case "Premium (Monthly)": return "premium1";
-      case "Premium (Yearly)": return "premium2";
-      case "Premium (Monthly Family)": return "premium3";
-      case "Premium (Yearly Family)": return "premium4";
-      default: return "unknown";
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    // === MEMBERSHIP SELECTION LOGIC ===
-    document.querySelectorAll(".toggle-expand")?.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const parent = btn.closest(".membership-card");
-        const expandable = parent.querySelector(".expandable-options");
-        expandable.classList.toggle("hidden");
-      });
-    });
-
-    document.querySelectorAll(".plan-option")?.forEach(button => {
-      button.addEventListener("click", () => {
-        selectedPlan = {
-          name: button.dataset.name,
-          cost: button.dataset.cost,
-          code: getMembershipCode(button.dataset.name)
-        };
-
-        document.getElementById("selected-membership-name").innerText = selectedPlan.name;
-        document.getElementById("membership-cost").innerText = "Amount: R" + selectedPlan.cost;
-        document.getElementById("payment-popup").classList.remove("hidden");
-      });
-    });
-
-    document.getElementById("payment-form")?.addEventListener("submit", function (e) {
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".login-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
       e.preventDefault();
-      const bank = document.getElementById("bank-name").value.trim();
-      const card = document.getElementById("card-number").value.trim();
-      const cv = document.getElementById("cv").value.trim();
-      const expiry = document.getElementById("expiry-date").value.trim();
-
-      if (!bank || !card || !cv || !expiry) {
-        alert("Please fill in all fields.");
-        return;
-      }
-
-      document.getElementById("payment-status").innerText = "Processing...";
-      document.getElementById("payment-status").classList.remove("hidden");
-      document.getElementById("payment-form").style.display = "none";
-
-      setTimeout(() => {
-        fetch("php/update_membership.php", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams({ membership: selectedPlan.code })
-        })
-        .then(res => res.text())
-        .then(response => {
-          document.getElementById("payment-status").innerHTML =
-            "Payment Successful!<br><button onclick='finishPayment()' class='register-button'>Finish</button>";
-        })
-        .catch(err => {
-          document.getElementById("payment-status").innerText = "Failed to save membership.";
-        });
-      }, 3000);
+      toggleLogin();
     });
-
-    // === LOGIN/REGISTER TOGGLE ===
-    document.querySelectorAll(".login-btn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        toggleLogin();
-      });
-    });
-
-    document.querySelectorAll(".register-btn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        toggleRegister();
-      });
-    });
-
-    // === REGISTER FORM SUBMIT ===
-    document.getElementById("register-form")?.addEventListener("submit", function (e) {
-      e.preventDefault();
-      fetch("php/register.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-          name: document.getElementById("register-name").value,
-          email: document.getElementById("register-email").value,
-          password: document.getElementById("register-password").value
-        })
-      })
-      .then(res => res.text())
-      .then(data => {
-        if (data.trim() === "success") {
-          alert("Registration successful!");
-          toggleRegister();
-        } else {
-          alert(data);
-        }
-      });
-    });
-
-    // === LOGIN FORM SUBMIT ===
-    document.getElementById("login-form")?.addEventListener("submit", function (e) {
-      e.preventDefault();
-      fetch("php/login.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-          email: document.getElementById("login-email").value,
-          password: document.getElementById("login-password").value
-        })
-      })
-      .then(res => res.text())
-      .then(data => {
-        if (data.trim() === "success") {
-          alert("Login successful!");
-          toggleLogin();
-          location.reload();
-        } else {
-          alert(data);
-        }
-      });
-    });
-
-    // === SESSION CHECK: REPLACE NAV BUTTONS IF LOGGED IN ===
-    fetch("php/check_session.php")
-      .then(res => res.json())
-      .then(data => {
-        if (data.loggedIn) {
-          document.querySelectorAll(".login-btn, .register-btn").forEach(btn => btn.style.display = "none");
-
-          const navList = document.querySelector("nav ul");
-
-          const profileTab = document.createElement("li");
-          const profileLink = document.createElement("a");
-          profileLink.href = "profile.html";
-          profileLink.innerText = "Profile";
-          profileTab.appendChild(profileLink);
-          navList.appendChild(profileTab);
-
-          if (data.role === "admin") {
-            const adminTab = document.createElement("li");
-            const adminLink = document.createElement("a");
-            adminLink.href = "manageusers.html";
-            adminLink.innerText = "Admin";
-            adminTab.appendChild(adminLink);
-            navList.appendChild(adminTab);
-          }
-        }
-      });
   });
+
+  document.querySelectorAll(".register-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      toggleRegister();
+    });
+  });
+
+  document.getElementById("register-form")?.addEventListener("submit", function (e) {
+    e.preventDefault();
+    fetch("php/register.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        name: document.getElementById("register-name").value,
+        email: document.getElementById("register-email").value,
+        password: document.getElementById("register-password").value
+      })
+    })
+    .then(res => res.text())
+    .then(data => {
+      if (data.trim() === "success") {
+        alert("Registration successful!");
+        toggleRegister();
+      } else {
+        alert(data);
+      }
+    });
+  });
+
+  document.getElementById("login-form")?.addEventListener("submit", function (e) {
+    e.preventDefault();
+    fetch("php/login.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        email: document.getElementById("login-email").value,
+        password: document.getElementById("login-password").value
+      })
+    })
+    .then(res => res.text())
+    .then(data => {
+      if (data.trim() === "success") {
+        alert("Login successful!");
+        toggleLogin();
+        location.reload();
+      } else {
+        alert(data);
+      }
+    });
+  });
+
+  fetch("php/check_session.php")
+    .then(res => res.json())
+    .then(data => {
+      if (data.loggedIn) {
+        document.querySelectorAll(".login-btn, .register-btn").forEach(btn => btn.style.display = "none");
+        const navList = document.querySelector("nav ul");
+
+        const profileTab = document.createElement("li");
+        const profileLink = document.createElement("a");
+        profileLink.href = "profile.html";
+        profileLink.innerText = "Profile";
+        profileTab.appendChild(profileLink);
+        navList.appendChild(profileTab);
+
+        if (data.role === "admin") {
+          const adminTab = document.createElement("li");
+          const adminLink = document.createElement("a");
+          adminLink.href = "manageusers.html";
+          adminLink.innerText = "Admin";
+          adminTab.appendChild(adminLink);
+          navList.appendChild(adminTab);
+        }
+      }
+    });
+});
 </script>
-
-
 </body>
 </html>
