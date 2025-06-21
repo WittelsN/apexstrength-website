@@ -21,12 +21,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
               LIMIT 1";
 
     $result = $conn->query($query);
+
     if ($result && $result->num_rows > 0) {
         $promo = $result->fetch_assoc();
         echo json_encode(['success' => true, 'promo' => $promo]);
     } else {
         echo json_encode(['success' => false, 'message' => 'Promotion not found']);
     }
+
     $conn->close();
     exit;
 }
@@ -78,5 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title'], $_POST['code
     exit;
 }
 
+// --- Catch all to avoid empty response ---
+echo json_encode(['success' => false, 'message' => 'No valid operation executed']);
 $conn->close();
 ?>
