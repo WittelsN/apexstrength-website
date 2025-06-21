@@ -14,7 +14,11 @@ if ($conn->connect_error) {
 // --- SEARCH PROMOTION ---
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
     $search = $conn->real_escape_string($_GET['search']);
-    $query = "SELECT * FROM promotions WHERE id = '$search' OR title LIKE '%$search%' LIMIT 1";
+    $query = "SELECT * FROM promotions 
+              WHERE id = '$search' 
+              OR title LIKE '%$search%' 
+              OR code LIKE '%$search%' 
+              LIMIT 1";
 
     $result = $conn->query($query);
     if ($result && $result->num_rows > 0) {
