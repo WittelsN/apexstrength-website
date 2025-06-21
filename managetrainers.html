@@ -181,7 +181,11 @@
     })
     .then(res => res.text())
     .then(response => {
-      alert(response);
+if (response.includes("Trainer added successfully")) {
+  alert("Trainer added successfully!");
+} else {
+  alert("Error: " + response);
+}
       this.reset();
       document.getElementById("preview-image").style.display = "none";
     });

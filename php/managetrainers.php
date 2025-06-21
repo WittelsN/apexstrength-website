@@ -57,6 +57,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['bio']
     $specialization = $conn->real_escape_string($_POST['specialization']);
 
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        // Optional: file type check (basic)
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mimeType = finfo_file($finfo, $_FILES['image']['tmp_name']);
+        finfo_close($finfo);
+
+        if (!in_array($mimeType, ['image/jpeg', 'image/png', 'image/jpg'])) {
+            echo "Unsupported image type. Please upload a JPG or PNG file.";
+            exit;
+        }
+
         $imgData = file_get_contents($_FILES['image']['tmp_name']);
 
         // Generate a unique placeholder email
@@ -84,7 +94,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['bio']
 
         $stmt->close();
     } else {
-        echo "Image upload failed.";
+        $errorCode = $_FILES['image']['error'];
+        $errorMessages = [
+            UPLOAD_ERR_INI_SIZE   => "File exceeds upload_max_filesize.",
+            UPLOAD_ERR_FORM_SIZE  => "File exceeds form MAX_FILE_SIZE.",
+            UPLOAD_ERR_PARTIAL    => "File was only partially uploaded.",
+            UPLOAD_ERR_NO_FILE    => "No file was uploaded.",
+            UPLOAD_ERR_NO_TMP_DIR => "Missing a temporary folder.",
+            UPLOAD_ERR_CANT_WRITE => "Failed to write file to disk.",
+            UPLOAD_ERR_EXTENSION  => "File upload stopped by extension.",
+        ];
+        $message = $errorMessages[$errorCode] ?? "Unknown upload error.";
+        echo "Image upload failed: $message";
     }
 }
 
