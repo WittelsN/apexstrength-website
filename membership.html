@@ -232,7 +232,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    // === MEMBERSHIP SELECTION LOGIC ===
+    // MEMBERSHIP SELECTION LOGIC 
     document.querySelectorAll(".toggle-expand")?.forEach(btn => {
       btn.addEventListener("click", () => {
         const parent = btn.closest(".membership-card");
@@ -246,7 +246,7 @@
         selectedPlan = {
           name: button.dataset.name,
           cost: button.dataset.cost,
-          code: button.dataset.name  // <-- FIXED: directly use dataset.name
+          code: button.dataset.name  
         };
 
         document.getElementById("selected-membership-name").innerText = selectedPlan.name;
@@ -288,7 +288,7 @@
       }, 3000);
     });
 
-    // === LOGIN/REGISTER TOGGLE ===
+    // LOGIN/REGISTER TOGGLE 
     document.querySelectorAll(".login-btn").forEach(btn => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -303,7 +303,7 @@
       });
     });
 
-    // === REGISTER FORM SUBMIT ===
+    // REGISTER FORM SUBMIT 
     document.getElementById("register-form")?.addEventListener("submit", function (e) {
       e.preventDefault();
       fetch("php/register.php", {
@@ -326,7 +326,7 @@
       });
     });
 
-    // === LOGIN FORM SUBMIT ===
+    // LOGIN FORM SUBMIT 
     document.getElementById("login-form")?.addEventListener("submit", function (e) {
       e.preventDefault();
       fetch("php/login.php", {
@@ -349,7 +349,7 @@
       });
     });
 
-    // === SESSION CHECK: REPLACE NAV BUTTONS IF LOGGED IN ===
+    // SESSION CHECK: REPLACE NAV BUTTONS IF LOGGED IN 
     fetch("php/check_session.php")
       .then(res => res.json())
       .then(data => {

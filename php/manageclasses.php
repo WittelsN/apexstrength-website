@@ -11,7 +11,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// --- SEARCH CLASS ---
+// SEARCH CLASS 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
     $search = $conn->real_escape_string($_GET['search']);
     $query = "SELECT id, name, description FROM classes 
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
     exit;
 }
 
-// --- DELETE CLASS ---
+// DELETE CLASS 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     $deleteId = (int) $_POST['delete_id'];
     $delete = $conn->prepare("DELETE FROM classes WHERE id = ?");
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     exit;
 }
 
-// --- ADD NEW CLASS ---
+// ADD NEW CLASS 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['description'])) {
     $name = $conn->real_escape_string($_POST['name']);
     $description = $conn->real_escape_string($_POST['description']);
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['descr
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $imageData = file_get_contents($_FILES['image']['tmp_name']);
 
-        // Proper handling of LONGBLOB
+        
         $stmt = $conn->prepare("INSERT INTO classes (name, description, class_image) VALUES (?, ?, ?)");
         $null = NULL;
         $stmt->bind_param("ssb", $name, $description, $null);

@@ -11,7 +11,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// --- SEARCH TRAINER ---
+// SEARCH TRAINER 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
     $search = $conn->real_escape_string($_GET['search']);
     $query = "SELECT pt.id, pt.name, pt.specialization, pt.bio 
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
     exit;
 }
 
-// --- DELETE TRAINER ---
+// DELETE TRAINER 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     $deleteId = (int) $_POST['delete_id'];
 
@@ -50,14 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     exit;
 }
 
-// --- ADD NEW TRAINER ---
+// ADD NEW TRAINER 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['bio'], $_POST['specialization'])) {
     $name = $conn->real_escape_string($_POST['name']);
     $bio = $conn->real_escape_string($_POST['bio']);
     $specialization = $conn->real_escape_string($_POST['specialization']);
 
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        // Optional: file type check (basic)
+
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mimeType = finfo_file($finfo, $_FILES['image']['tmp_name']);
         finfo_close($finfo);
@@ -69,7 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['bio']
 
         $imgData = file_get_contents($_FILES['image']['tmp_name']);
 
-        // Generate a unique placeholder email
         $uniqueEmail = strtolower(str_replace(' ', '', $name)) . uniqid('@trainer.apex');
 
         // Add user to users table
@@ -82,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['bio']
         $user_id = $stmtUser->insert_id;
         $stmtUser->close();
 
-        // Add trainer to personal_trainers table (includes name)
+        // Add trainer to personal_trainers table 
         $stmt = $conn->prepare("INSERT INTO personal_trainers (user_id, name, bio, specialization, profile_image) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("issss", $user_id, $name, $bio, $specialization, $imgData);
 

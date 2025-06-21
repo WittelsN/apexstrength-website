@@ -11,7 +11,7 @@ if ($conn->connect_error) {
     die(json_encode(['trainers' => [], 'classes' => [], 'promotions' => []]));
 }
 
-// --- Load Trainers ---
+// Load Trainers 
 $trainerQuery = "SELECT pt.name, pt.specialization, pt.profile_image 
                  FROM personal_trainers pt 
                  LIMIT 3";
@@ -23,7 +23,7 @@ while ($row = $trainerResult->fetch_assoc()) {
     $trainers[] = $row;
 }
 
-// --- Load Classes ---
+// Load Classes 
 $classQuery = "SELECT name, description, class_image FROM classes LIMIT 3";
 $classResult = $conn->query($classQuery);
 $classes = [];
@@ -33,7 +33,7 @@ while ($row = $classResult->fetch_assoc()) {
     $classes[] = $row;
 }
 
-// --- Load Promotions ---
+// Load Promotions 
 $promoQuery = "SELECT title, code, description, start_date, end_date, banner_image FROM promotions LIMIT 3";
 $promoResult = $conn->query($promoQuery);
 $promotions = [];
@@ -54,7 +54,7 @@ while ($row = $promoResult->fetch_assoc()) {
     $promotions[] = $row;
 }
 
-// --- Output all data ---
+// Output all data 
 header('Content-Type: application/json');
 echo json_encode([
     'trainers' => $trainers,

@@ -11,7 +11,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// --- SEARCH BLOG ---
+// SEARCH BLOG 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
     $search = $conn->real_escape_string($_GET['search']);
     $query = "SELECT id, title, created_at FROM blog_posts WHERE id = '$search' OR title LIKE '%$search%' LIMIT 1";
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
     exit;
 }
 
-// --- DELETE BLOG ---
+// DELETE BLOG 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     $deleteId = (int) $_POST['delete_id'];
     $stmt = $conn->prepare("DELETE FROM blog_posts WHERE id = ?");
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     exit;
 }
 
-// --- ADD BLOG POST ---
+// ADD BLOG POST 
 session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title'], $_POST['content'])) {
     if (!isset($_SESSION['user_id'])) {

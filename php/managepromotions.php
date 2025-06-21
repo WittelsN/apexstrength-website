@@ -10,7 +10,7 @@ if ($conn->connect_error) {
     die(json_encode(['success' => false, 'message' => 'Connection failed']));
 }
 
-// --- SEARCH PROMOTION ---
+// SEARCH PROMOTION 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
     $search = $conn->real_escape_string($_GET['search']);
     $query = "SELECT id, title, description, start_date, end_date, code FROM promotions 
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
     exit;
 }
 
-// --- DELETE PROMOTION ---
+// DELETE PROMOTION 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     $deleteId = (int) $_POST['delete_id'];
     $stmt = $conn->prepare("DELETE FROM promotions WHERE id = ?");
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     exit;
 }
 
-// --- ADD PROMOTION ---
+// ADD PROMOTION 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' &&
     isset($_POST['title'], $_POST['code'], $_POST['description'], $_POST['start_date'], $_POST['end_date'])
 ) {

@@ -49,29 +49,27 @@
     limits, Apex Strength is your partner in achieving lasting results and building a healthier, more confident you.</p>
   </section>
 
-  <!-- Trainers Section -->
-  <!-- Trainers Section -->
+ 
 <!-- Trainers Section -->
 <section class="feature-block">
   <h2 class="h2">Trainers</h2>
   <div class="card-grid" id="trainer-cards">
-    <!-- Trainer cards will be inserted here -->
+
   </div>
 </section>
 
 
 
-  <!-- Classes Section -->
   <!-- Classes Section -->
 <section class="feature-block">
   <h2 class="h2">Classes</h2>
   <div class="card-grid" id="class-cards">
-    <!-- Class cards will be dynamically inserted here -->
+
   </div>
 </section>
 
 
-  <!-- Membership CTA -->
+  <!-- Membership Section -->
   <section class="cta-membership" style="background: url('assets/membershipbanner.jpg') no-repeat center center/cover;">
     <div class="cta-overlay">
       <h3>Membership</h3>
@@ -83,7 +81,7 @@
 <section class="feature-block">
   <h2 class="h2">Promotions</h2>
   <div class="card-grid" id="promotion-cards">
-    <!-- Dynamic promotion cards will be inserted here -->
+
   </div>
 </section>
 
@@ -109,7 +107,21 @@
       <div class="card">
         <img src="assets/location3.png" alt="Location 3" class="card-img" />
         <div class="card-info">
-          <strong>📍 Bedfordview</strong>
+          <strong>📍 Sea Point</strong>
+        </div>
+        <a href="locations.html" class="abovefooter-btn">Learn More</a>
+      </div>
+      <div class="card">
+        <img src="assets/location4.png" alt="Location 3" class="card-img" />
+        <div class="card-info">
+          <strong>📍 Durban</strong>
+        </div>
+        <a href="locations.html" class="abovefooter-btn">Learn More</a>
+      </div>
+      <div class="card">
+        <img src="assets/location5.png" alt="Location 3" class="card-img" />
+        <div class="card-info">
+          <strong>📍 Kimberley</strong>
         </div>
         <a href="locations.html" class="abovefooter-btn">Learn More</a>
       </div>
@@ -178,7 +190,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    // Toggle login/register panels
+
     document.querySelectorAll(".login-btn").forEach(btn => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -243,7 +255,7 @@
       });
     });
 
-    // Load session info
+    // Load session 
     fetch("php/check_session.php")
       .then(res => res.json())
       .then(data => {
@@ -273,7 +285,7 @@
     fetch("php/db_index.php")
       .then(res => res.json())
       .then(data => {
-        // === Trainers ===
+        // Trainers 
         const trainerGrid = document.getElementById("trainer-cards");
         trainerGrid.innerHTML = "";
         data.trainers.slice(0, 3).forEach(trainer => {
@@ -290,7 +302,7 @@
           trainerGrid.appendChild(card);
         });
 
-        // === Classes ===
+        // Classes 
         const classGrid = document.getElementById("class-cards");
         classGrid.innerHTML = "";
         data.classes.slice(0, 3).forEach(gymClass => {
@@ -306,7 +318,7 @@
           classGrid.appendChild(card);
         });
 
-// === Promotions ===
+// Promotions 
 const promoGrid = document.getElementById("promotion-cards");
 promoGrid.innerHTML = "";
 data.promotions.slice(0, 3).forEach(promo => {
@@ -325,7 +337,6 @@ data.promotions.slice(0, 3).forEach(promo => {
     <button class="abovefooter-btn learn-more-btn">Learn More</button>
   `;
 
-  // Add toggle functionality
   card.querySelector(".learn-more-btn").addEventListener("click", function () {
     const fullDesc = card.querySelector(".full-desc");
     const isVisible = fullDesc.style.display === "block";

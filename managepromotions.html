@@ -109,7 +109,7 @@
 </header>
 
 <section class="admin-section">
-  <!-- SEARCH + DELETE -->
+  <!-- SEARCH and DELETE -->
   <div class="search-section">
     <h2>Search & Delete Promotion</h2>
     <input type="text" id="promo-search-input" placeholder="Enter promotion ID or title..." />
@@ -181,7 +181,7 @@
   if (!search) return;
 
   fetch(`php/managepromotions.php?search=${encodeURIComponent(search)}`)
-    .then(res => res.text())  // fetch raw text first
+    .then(res => res.text())  
     .then(raw => {
       console.log("Raw response:", raw);
       try {

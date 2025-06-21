@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
   }
 
-  // ✅ Railway connection settings
+  // Railway connection settings
   $host = 'hopper.proxy.rlwy.net';
   $port = 13403;
   $user = 'root';

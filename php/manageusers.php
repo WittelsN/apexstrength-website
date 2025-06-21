@@ -13,7 +13,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// ✅ Handle user deletion first
+// DELETE USER
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user_id'])) {
     $deleteId = (int)$_POST['delete_user_id'];
     $deleteStmt = $conn->prepare("DELETE FROM users WHERE id = ?");
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user_id'])) {
     exit;
 }
 
-// ✅ Handle search query
+// SEARCH USER
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
     $search = $conn->real_escape_string($_GET['search']);
     $query = "SELECT id, name, email, role, membership FROM users 
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
     exit;
 }
 
-// ✅ Handle new user creation (runs only if not a delete)
+//  NEW USER 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $conn->real_escape_string($_POST['name']);
     $email = $conn->real_escape_string($_POST['email']);
