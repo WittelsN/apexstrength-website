@@ -232,8 +232,27 @@
         document.getElementById("payment-status").innerHTML = "Payment Successful!<br><button onclick='finishPayment()' class='register-button'>Finish</button>";
       }, 3000);
     });
+
+    // Session check to update nav buttons
+    fetch('php/session.php')
+      .then(res => res.json())
+      .then(data => {
+        if (data.loggedIn) {
+          document.querySelector('.login-btn')?.classList.add('hidden');
+          document.querySelector('.register-btn')?.classList.add('hidden');
+
+          const nav = document.querySelector('nav ul');
+          const profileItem = document.createElement('li');
+          const profileLink = document.createElement('a');
+          profileLink.href = 'profile.html';
+          profileLink.textContent = 'Profile';
+          profileItem.appendChild(profileLink);
+          nav.appendChild(profileItem);
+        }
+      });
   });
 </script>
+
 
 </body>
 </html>
