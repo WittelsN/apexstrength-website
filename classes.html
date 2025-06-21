@@ -10,6 +10,58 @@
 </head>
 <body>
 
+  <style>
+    /* Slide-in Panels */
+.slide-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 350px;
+  height: 100%;
+  background-color: #111;
+  color: #fff;
+  padding: 30px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  transition: right 0.3s ease-in-out;
+}
+
+.slide-panel.active {
+  right: 0;
+}
+
+.slide-panel.right {
+  right: -400px;
+}
+
+.panel-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-form input {
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.register-button {
+  margin-top: 10px;
+  padding: 12px;
+  font-weight: bold;
+  background-color: #e11d48;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.register-button:hover {
+  background-color: #9f1239;
+}
+
+  </style>
+
 <header class="navbar">
   <div class="logo-container">
     <img src="assets/logo.png" alt="Logo" />
