@@ -190,7 +190,16 @@
     alert("Membership successfully selected!");
   }
 
+  function toggleLogin() {
+    document.getElementById("login-panel").classList.toggle("active");
+  }
+
+  function toggleRegister() {
+    document.getElementById("register-panel").classList.toggle("active");
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
+    // Expand plan options
     document.querySelectorAll(".toggle-expand").forEach(btn => {
       btn.addEventListener("click", () => {
         const parent = btn.closest(".membership-card");
@@ -199,6 +208,7 @@
       });
     });
 
+    // Select plan
     document.querySelectorAll(".plan-option").forEach(button => {
       button.addEventListener("click", () => {
         selectedPlan = {
@@ -212,6 +222,7 @@
       });
     });
 
+    // Handle payment
     document.getElementById("payment-form")?.addEventListener("submit", function (e) {
       e.preventDefault();
       const bank = document.getElementById("bank-name").value.trim();
@@ -229,29 +240,102 @@
       document.getElementById("payment-form").style.display = "none";
 
       setTimeout(() => {
-        document.getElementById("payment-status").innerHTML = "Payment Successful!<br><button onclick='finishPayment()' class='register-button'>Finish</button>";
+        document.getElementById("payment-status").innerHTML =
+          "Payment Successful!<br><button onclick='finishPayment()' class='register-button'>Finish</button>";
       }, 3000);
     });
 
-    // Session check to update nav buttons
-    fetch('php/session.php')
+    // === LOGIN & REGISTER PANEL LOGIC ===
+    document.querySelectorAll(".login-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleLogin();
+      });
+    });
+
+    document.querySelectorAll(".register-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleRegister();
+      });
+    });
+
+    document.getElementById("register-form")?.addEventListener("submit", function (e) {
+      e.preventDefault();
+      fetch("php/register.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          name: document.getElementById("register-name").value,
+          email: document.getElementById("register-email").value,
+          password: document.getElementById("register-password").value
+        })
+      })
+      .then(res => res.text())
+      .then(data => {
+        if (data.trim() === "success") {
+          alert("Registration successful!");
+          toggleRegister();
+        } else {
+          alert(data);
+        }
+      });
+    });
+
+    document.getElementById("login-form")?.addEventListener("submit", function (e) {
+      e.preventDefault();
+      fetch("php/login.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          email: document.getElementById("login-email").value,
+          password: document.getElementById("login-password").value
+        })
+      })
+      .then(res => res.text())
+      .then(data => {
+        if (data.trim() === "success") {
+          alert("Login successful!");
+          toggleLogin();
+          location.reload();
+        } else {
+          alert(data);
+        }
+      });
+    });
+
+    // === SESSION CHECK ===
+    fetch("php/check_session.php")
       .then(res => res.json())
       .then(data => {
         if (data.loggedIn) {
-          document.querySelector('.login-btn')?.classList.add('hidden');
-          document.querySelector('.register-btn')?.classList.add('hidden');
+          document.querySelectorAll(".login-btn, .register-btn").forEach(btn => btn.style.display = "none");
+          const navList = document.querySelector("nav ul");
 
-          const nav = document.querySelector('nav ul');
-          const profileItem = document.createElement('li');
-          const profileLink = document.createElement('a');
-          profileLink.href = 'profile.html';
-          profileLink.textContent = 'Profile';
-          profileItem.appendChild(profileLink);
-          nav.appendChild(profileItem);
+          const profileTab = document.createElement("li");
+          const profileLink = document.createElement("a");
+          profileLink.href = "profile.html";
+          profileLink.innerText = "Profile";
+          profileTab.appendChild(profileLink);
+          navList.appendChild(profileTab);
+
+          if (data.role === "admin") {
+            const adminTab = document.createElement("li");
+            const adminLink = document.createElement("a");
+            adminLink.href = "manageusers.html";
+            adminLink.innerText = "Admin";
+            adminTab.appendChild(adminLink);
+            navList.appendChild(adminTab);
+          }
         }
       });
   });
 </script>
+
 
 
 </body>
