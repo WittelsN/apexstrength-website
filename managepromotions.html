@@ -181,12 +181,11 @@
   if (!search) return;
 
   fetch(`php/managepromotions.php?search=${encodeURIComponent(search)}`)
-    .then(res => res.text()) // Get raw response first
-    .then(text => {
+    .then(res => res.text())  // fetch raw text first
+    .then(raw => {
+      console.log("Raw response:", raw);
       try {
-        const data = JSON.parse(text);
-        console.log("Search response:", data);
-
+        const data = JSON.parse(raw);
         if (data.success) {
           document.getElementById("promo-result").style.display = "block";
           document.getElementById("promo-id").textContent = data.promo.id;
@@ -199,17 +198,14 @@
           alert(data.message);
           document.getElementById("promo-result").style.display = "none";
         }
-      } catch (err) {
-        console.error("Failed to parse JSON:", err);
-        console.error("Raw response:", text);
-        alert("Unexpected server response. Check console.");
+      } catch (e) {
+        console.error("Failed to parse JSON:", e);
+        console.log("Raw response:", raw);
+        alert("Error: Could not parse server response.");
       }
-    })
-    .catch(err => {
-      console.error("Fetch error:", err);
-      alert("Failed to reach the server.");
     });
 }
+
 
 
   // DELETE PROMOTION
